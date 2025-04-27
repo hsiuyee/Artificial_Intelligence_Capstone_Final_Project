@@ -13,7 +13,7 @@ from tqdm import tqdm
 DATA_DIR = './Warwick_QU_Dataset'
 SAVE_DIR = './Warwick_QU_Dataset_denoised'
 os.makedirs(SAVE_DIR, exist_ok=True)
-IMG_SIZE = 128  # Adjust as needed
+IMG_SIZE = 512  # Adjust as needed
 
 # 2. Dataset definition
 class NoisyImageDataset(Dataset):
@@ -55,7 +55,18 @@ class DenoisingAutoencoder(nn.Module):
 # 4. Prepare data and model
 dataset = NoisyImageDataset(DATA_DIR, IMG_SIZE)
 dataloader = DataLoader(dataset, batch_size=16, shuffle=True)
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+# ---- Device selection: prefer MPS (Apple Silicon GPU), then CUDA, then CPU ----
+if torch.backends.mps.is_available():
+    device = torch.device('mps')
+    print("Using Apple Silicon GPU (MPS).")
+elif torch.cuda.is_available():
+    device = torch.device('cuda')
+    print("Using CUDA GPU.")
+else:
+    device = torch.device('cpu')
+    print("Using CPU.")
+
 model = DenoisingAutoencoder().to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 loss_fn = nn.MSELoss()
