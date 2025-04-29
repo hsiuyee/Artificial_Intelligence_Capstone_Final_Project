@@ -81,21 +81,21 @@ def train(model_name):
 
         train_loss = running_loss / len(train_loader)
 
-        # 🔥 Evaluate after each epoch
+        # Evaluate after each epoch
         val_loss, val_dice = evaluate(model, val_loader, criterion, device)
 
         print(f"Epoch [{epoch+1}/{num_epochs}] | Train Loss: {train_loss:.4f} | Val Loss: {val_loss:.4f} | Val Dice: {val_dice:.4f}")
 
-        # 🔥 Tensorboard logging
+        # Tensorboard logging
         writer.add_scalar("Loss/train", train_loss, epoch)
         writer.add_scalar("Loss/val", val_loss, epoch)
         writer.add_scalar("Dice/val", val_dice, epoch)
         writer.add_scalar("LearningRate", optimizer.param_groups[0]["lr"], epoch)
 
-        # 🔥 Learning rate scheduler
+        # Learning rate scheduler
         scheduler.step(val_dice)
 
-        # 🔥 Save best model
+        # Save best model
         if val_dice > best_dice:
             best_dice = val_dice
             save_path = f"info/models/best_{model_name}.pth"
@@ -106,7 +106,7 @@ def train(model_name):
             early_stop_counter += 1
             print(f"Early stop counter: {early_stop_counter}/{early_stop_patience}")
 
-        # 🔥 Early stopping
+        # Early stopping
         if early_stop_counter >= early_stop_patience:
             print(f"Early stopping triggered at epoch {epoch+1}")
             break
