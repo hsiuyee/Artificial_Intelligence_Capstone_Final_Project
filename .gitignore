@@ -1,0 +1,3 @@
+# Ignore model checkpoints and logs
+Segmentation/info/models/
+Segmentation/info/debugs/

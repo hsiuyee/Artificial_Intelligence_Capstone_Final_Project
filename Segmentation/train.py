@@ -48,14 +48,12 @@ def train(model_name):
 
     model = get_model(
         model_name=model_name,
-        encoder_name="resnet50",
-        in_channels=3,
-        classes=1
+        encoder_name="resnet50"
     ).to(device)
 
     criterion = get_loss()
     optimizer = optim.Adam(model.parameters(), lr=1e-4)
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.5, patience=3, verbose=True)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.5, patience=3)
 
     # 5. Training loop
     num_epochs = 100
@@ -98,7 +96,7 @@ def train(model_name):
         # Save best model
         if val_dice > best_dice:
             best_dice = val_dice
-            save_path = f"info/models/best_{model_name}.pth"
+            save_path = f"info/models/{model_name}.pth"
             torch.save(model.state_dict(), save_path)
             print(f"Best model updated and saved at {save_path}")
             early_stop_counter = 0  # Reset counter if improved

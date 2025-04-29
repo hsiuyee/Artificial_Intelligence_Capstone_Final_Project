@@ -1,40 +1,30 @@
-# project/model.py
-
 import segmentation_models_pytorch as smp
 import torch.nn as nn
 
 def get_model(model_name="Unet", encoder_name="resnet34", in_channels=3, classes=1):
-    """Create segmentation model dynamically."""
-    
-    # Choose model dynamically
-    if model_name == "Unet":
-        model = smp.Unet(
-            encoder_name=encoder_name,
-            encoder_weights="imagenet",
-            in_channels=in_channels,
-            classes=classes,
-            activation=None
-        )
-    elif model_name == "FPN":
-        model = smp.FPN(
-            encoder_name=encoder_name,
-            encoder_weights="imagenet",
-            in_channels=in_channels,
-            classes=classes,
-            activation=None
-        )
-    elif model_name == "DeepLabV3+":
-        model = smp.DeepLabV3Plus(
-            encoder_name=encoder_name,
-            encoder_weights="imagenet",
-            in_channels=in_channels,
-            classes=classes,
-            activation=None
-        )
-    else:
-        raise ValueError(f"Model {model_name} not supported.")
+    model_dict = {
+        "Unet": smp.Unet,
+        "Unet++": smp.UnetPlusPlus,
+        "MAnet": smp.MAnet,
+        "Linknet": smp.Linknet,
+        "FPN": smp.FPN,
+        "PSPNet": smp.PSPNet,
+        "PAN": smp.PAN,
+        "DeepLabV3": smp.DeepLabV3,
+        "DeepLabV3+": smp.DeepLabV3Plus,
+    }
 
-    return model
+    if model_name not in model_dict:
+        raise ValueError(f" Model '{model_name}' not supported.\nChoose from: {list(model_dict.keys())}")
+
+    model_class = model_dict[model_name]
+    return model_class(
+        encoder_name=encoder_name,
+        encoder_weights="imagenet",
+        in_channels=in_channels,
+        classes=classes,
+        activation=None
+    )
 
 def get_loss():
     return nn.BCEWithLogitsLoss()
