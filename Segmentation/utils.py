@@ -53,7 +53,7 @@ class GlaSDataset(Dataset):
 
         image = np.array(Image.open(img_path).convert("RGB"))
         mask = np.array(Image.open(mask_path).convert("L"))
-        mask = (mask > 127).astype(np.float32)
+        mask = (mask > 0).astype(np.float32)
 
         if self.transform:
             augmented = self.transform(image=image, mask=mask)
@@ -106,7 +106,7 @@ def build_dataset(source_dir, output_dir, split_ratio = 0.8):
 if __name__ == "__main__":
     build_dataset(
         source_dir=os.path.abspath(
-            os.path.join(os.path.dirname(__file__), "../Preprocess/Warwick_QU_Dataset_denoised")
+            os.path.join(os.path.dirname(__file__), "../Preprocess/Warwick_QU_Dataset")
         ),
         output_dir="dataset",
         split_ratio=0.8

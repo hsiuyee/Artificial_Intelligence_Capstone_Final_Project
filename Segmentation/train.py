@@ -4,9 +4,10 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 import argparse
-
+from datetime import datetime
 from model import get_model, get_loss
 from utils import get_transform, dice_score, GlaSDataset
+
 
 def evaluate(model, val_loader, criterion, device):
     model.eval()
@@ -34,7 +35,7 @@ def train(model_name):
     os.makedirs("info/logs", exist_ok=True)
 
     # 2. Tensorboard
-    writer = SummaryWriter(log_dir="info/logs")
+    writer = SummaryWriter(log_dir=f"info/logs/{model_name}/{datetime.now().strftime('%Y%m%d_%H%M%S')}")
 
     # 3. Data preparation
     train_dataset = GlaSDataset("dataset/images/train", "dataset/masks/train", transform=get_transform(train=True))
