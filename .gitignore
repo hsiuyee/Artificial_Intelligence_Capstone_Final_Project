@@ -1,3 +1,5 @@
 # Ignore model checkpoints and logs
 Segmentation/info/models/
 Segmentation/info/debugs/
+Classification/info/models/
+Classification/info/debugs/
