@@ -1,4 +1,5 @@
 import os
+import csv
 from glob import glob
 from PIL import Image, ImageOps, ImageEnhance, ImageDraw
 import numpy as np
@@ -333,34 +334,53 @@ def uncompress_dataset(path):
 # 6. Process
 if __name__ == "__main__":
     os.makedirs(SAVE_DIR, exist_ok=True)
+    files = list()
     seq_num = 1
     rand_augmentor_list = list()
     # One can modify this to get more augmented training dataset
     rand_augmentor_list.append(RandAugment(3, 8))
     rand_augmentor_list.append(RandAugment(4, 13))
     rand_augmentor_list.append(RandAugment(5, 19))
-    files = sorted(glob(os.path.join(DATA_DIR, '*.bmp')))
-    for f in tqdm(files, desc='Augmenting and saving'):
-        if f.find("anno") >= 0 or f.find('test') >= 0:
-            continue
-        else:
-            mf = f[:-4] + "_anno.bmp"
-        img = Image.open(f).convert('RGB')
-        mask = Image.open(mf).convert('L')
-        mask = mask_transform(mask)
-        img_list, mask_list = random_crop(img, mask, N=5, size=IMG_SIZE) # modify N to get more crop
-        for timg, tmask in zip(img_list, mask_list):
-            for rdaug in rand_augmentor_list:
-                newimg, newmask = rdaug(timg, tmask)
-                newimg.save(SAVE_DIR+"/train_"+str(seq_num)+".bmp")
-                newmask.save(SAVE_DIR+"/train_"+str(seq_num)+"_anno.bmp")
+
+    with open(DATA_DIR+"/Grade.csv", "r") as csvfile:
+        reader = csv.reader(csvfile)
+        next(reader)
+        for row in reader:
+            files.append(row)
+
+    with open(SAVE_DIR+"/Grade.csv", "w", newline="") as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(["name", "grade1", "grade2"])
+
+        for r in tqdm(files, desc='Augmenting and saving'):
+            if r[0] is None:
+                break
+            fn, _, l1, l2 = r
+            if fn.find('test') >= 0:
+                continue
+            else:
+                f = DATA_DIR+'/'+fn+'.bmp'
+                mf = DATA_DIR+'/'+fn+'_anno.bmp'
+            img = Image.open(f).convert('RGB')
+            mask = Image.open(mf).convert('L')
+            mask = mask_transform(mask)
+            img_list, mask_list = random_crop(img, mask, N=5, size=IMG_SIZE) # modify N to get more crop
+            for timg, tmask in zip(img_list, mask_list):
+                for rdaug in rand_augmentor_list:
+                    newimg, newmask = rdaug(timg, tmask)
+                    newimg.save(SAVE_DIR+"/train_"+str(seq_num)+".bmp")
+                    newmask.save(SAVE_DIR+"/train_"+str(seq_num)+"_anno.bmp")
+                    augname = "train_"+str(seq_num)
+                    writer.writerow([augname, l1, l2])
+                    seq_num += 1
+
+                timg.save(SAVE_DIR+"/train_"+str(seq_num)+".bmp")
+                tmask.save(SAVE_DIR+"/train_"+str(seq_num)+"_anno.bmp")
+                augname = "train_"+str(seq_num)
+                writer.writerow([augname, l1, l2])
                 seq_num += 1
 
-            timg.save(SAVE_DIR+"/train_"+str(seq_num)+".bmp")
-            tmask.save(SAVE_DIR+"/train_"+str(seq_num)+"_anno.bmp")
-            seq_num += 1
+            img.close()
+            mask.close()
 
-        img.close()
-        mask.close()
-
-    print('All done! Augmented images are saved in:', SAVE_DIR)
+        print('All done! Augmented images are saved in:', SAVE_DIR)
