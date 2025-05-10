@@ -350,7 +350,7 @@ if __name__ == "__main__":
 
     with open(SAVE_DIR+"/Grade.csv", "w", newline="") as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(["name", "grade1", "grade2"])
+        writer.writerow(["name", "origin_ame", "grade1", "grade2"])
 
         for r in tqdm(files, desc='Augmenting and saving'):
             if r[0] is None:
@@ -371,13 +371,13 @@ if __name__ == "__main__":
                     newimg.save(SAVE_DIR+"/train_"+str(seq_num)+".bmp")
                     newmask.save(SAVE_DIR+"/train_"+str(seq_num)+"_anno.bmp")
                     augname = "train_"+str(seq_num)
-                    writer.writerow([augname, l1, l2])
+                    writer.writerow([augname, fn, l1, l2])
                     seq_num += 1
 
                 timg.save(SAVE_DIR+"/train_"+str(seq_num)+".bmp")
                 tmask.save(SAVE_DIR+"/train_"+str(seq_num)+"_anno.bmp")
                 augname = "train_"+str(seq_num)
-                writer.writerow([augname, l1, l2])
+                writer.writerow([augname, fn, l1, l2])
                 seq_num += 1
 
             img.close()
