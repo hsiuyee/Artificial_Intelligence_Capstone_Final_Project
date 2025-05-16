@@ -3,3 +3,5 @@ Segmentation/info/models/
 Segmentation/info/debugs/
 Classification/info/models/
 Classification/info/debugs/
+Preprocess/Warwick_QU_Dataset_augmentation
+Preprocess/Warwick_QU_Dataset_denoised
