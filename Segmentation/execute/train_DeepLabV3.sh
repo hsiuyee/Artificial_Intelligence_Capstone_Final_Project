@@ -1,0 +1,1 @@
+setsid python3 train.py --model_name DeepLabV3 > info/debugs/DeepLabV3.log 2>&1 &

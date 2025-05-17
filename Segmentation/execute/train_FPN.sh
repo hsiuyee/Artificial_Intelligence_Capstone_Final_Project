@@ -1,0 +1,1 @@
+setsid python3 train.py --model_name FPN > info/debugs/FPN.log 2>&1 &

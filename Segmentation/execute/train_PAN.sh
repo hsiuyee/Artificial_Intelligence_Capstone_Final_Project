@@ -1,0 +1,1 @@
+setsid python3 train.py --model_name PAN > info/debugs/PAN.log 2>&1 &

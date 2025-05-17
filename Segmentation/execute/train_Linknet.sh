@@ -1,0 +1,1 @@
+setsid python3 train.py --model_name Linknet > info/debugs/Linknet.log 2>&1 &

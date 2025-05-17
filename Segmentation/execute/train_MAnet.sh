@@ -1,0 +1,1 @@
+setsid python3 train.py --model_name MAnet > info/debugs/MAnet.log 2>&1 &
