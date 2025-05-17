@@ -1,0 +1,114 @@
+/home/jimmywu/homework/AI_capstone/Final_project/.venv/lib/python3.9/site-packages/albumentations/__init__.py:28: UserWarning: A new version of Albumentations is available: '2.0.7' (you have '2.0.6'). Upgrade using: pip install -U albumentations. To disable automatic update checks, set the environment variable NO_ALBUMENTATIONS_UPDATE to 1.
+  check_for_updates()
+/home/jimmywu/homework/AI_capstone/Final_project/.venv/lib/python3.9/site-packages/torch/cuda/__init__.py:174: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 11040). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:109.)
+  return torch._C._cuda_getDeviceCount() > 0
+Epoch [1/100] | Train Loss: 0.6194 | Val Loss: 0.5592 | Val Dice: 0.7870
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [2/100] | Train Loss: 0.4886 | Val Loss: 0.4161 | Val Dice: 0.8160
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [3/100] | Train Loss: 0.3632 | Val Loss: 0.3079 | Val Dice: 0.8723
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [4/100] | Train Loss: 0.2838 | Val Loss: 0.2561 | Val Dice: 0.8942
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [5/100] | Train Loss: 0.2559 | Val Loss: 0.2019 | Val Dice: 0.9220
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [6/100] | Train Loss: 0.2068 | Val Loss: 0.1864 | Val Dice: 0.9277
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [7/100] | Train Loss: 0.1855 | Val Loss: 0.1741 | Val Dice: 0.9332
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [8/100] | Train Loss: 0.1648 | Val Loss: 0.1475 | Val Dice: 0.9448
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [9/100] | Train Loss: 0.1473 | Val Loss: 0.1411 | Val Dice: 0.9476
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [10/100] | Train Loss: 0.1378 | Val Loss: 0.1307 | Val Dice: 0.9520
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [11/100] | Train Loss: 0.1266 | Val Loss: 0.1281 | Val Dice: 0.9530
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [12/100] | Train Loss: 0.1231 | Val Loss: 0.1194 | Val Dice: 0.9571
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [13/100] | Train Loss: 0.1116 | Val Loss: 0.1141 | Val Dice: 0.9595
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [14/100] | Train Loss: 0.1064 | Val Loss: 0.1124 | Val Dice: 0.9591
+Early stop counter: 1/10
+Epoch [15/100] | Train Loss: 0.1049 | Val Loss: 0.1113 | Val Dice: 0.9587
+Early stop counter: 2/10
+Epoch [16/100] | Train Loss: 0.0953 | Val Loss: 0.1020 | Val Dice: 0.9641
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [17/100] | Train Loss: 0.0933 | Val Loss: 0.1048 | Val Dice: 0.9614
+Early stop counter: 1/10
+Epoch [18/100] | Train Loss: 0.0929 | Val Loss: 0.0993 | Val Dice: 0.9647
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [19/100] | Train Loss: 0.0872 | Val Loss: 0.0985 | Val Dice: 0.9656
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [20/100] | Train Loss: 0.0854 | Val Loss: 0.0969 | Val Dice: 0.9654
+Early stop counter: 1/10
+Epoch [21/100] | Train Loss: 0.0809 | Val Loss: 0.1003 | Val Dice: 0.9637
+Early stop counter: 2/10
+Epoch [22/100] | Train Loss: 0.0790 | Val Loss: 0.0917 | Val Dice: 0.9678
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [23/100] | Train Loss: 0.0778 | Val Loss: 0.0918 | Val Dice: 0.9679
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [24/100] | Train Loss: 0.0736 | Val Loss: 0.0905 | Val Dice: 0.9685
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [25/100] | Train Loss: 0.0718 | Val Loss: 0.0890 | Val Dice: 0.9696
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [26/100] | Train Loss: 0.0702 | Val Loss: 0.0895 | Val Dice: 0.9697
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [27/100] | Train Loss: 0.0666 | Val Loss: 0.0888 | Val Dice: 0.9690
+Early stop counter: 1/10
+Epoch [28/100] | Train Loss: 0.0665 | Val Loss: 0.0877 | Val Dice: 0.9701
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [29/100] | Train Loss: 0.0667 | Val Loss: 0.0882 | Val Dice: 0.9700
+Early stop counter: 1/10
+Epoch [30/100] | Train Loss: 0.0664 | Val Loss: 0.0882 | Val Dice: 0.9699
+Early stop counter: 2/10
+Epoch [31/100] | Train Loss: 0.0652 | Val Loss: 0.0871 | Val Dice: 0.9699
+Early stop counter: 3/10
+Epoch [32/100] | Train Loss: 0.0701 | Val Loss: 0.0871 | Val Dice: 0.9695
+Early stop counter: 4/10
+Epoch [33/100] | Train Loss: 0.0625 | Val Loss: 0.0834 | Val Dice: 0.9716
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [34/100] | Train Loss: 0.0591 | Val Loss: 0.0814 | Val Dice: 0.9723
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [35/100] | Train Loss: 0.0575 | Val Loss: 0.0812 | Val Dice: 0.9730
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [36/100] | Train Loss: 0.0570 | Val Loss: 0.0803 | Val Dice: 0.9732
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [37/100] | Train Loss: 0.0561 | Val Loss: 0.0806 | Val Dice: 0.9731
+Early stop counter: 1/10
+Epoch [38/100] | Train Loss: 0.0551 | Val Loss: 0.0797 | Val Dice: 0.9737
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [39/100] | Train Loss: 0.0543 | Val Loss: 0.0798 | Val Dice: 0.9737
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [40/100] | Train Loss: 0.0526 | Val Loss: 0.0797 | Val Dice: 0.9737
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [41/100] | Train Loss: 0.0510 | Val Loss: 0.0789 | Val Dice: 0.9740
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [42/100] | Train Loss: 0.0517 | Val Loss: 0.0789 | Val Dice: 0.9740
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [43/100] | Train Loss: 0.0522 | Val Loss: 0.0795 | Val Dice: 0.9738
+Early stop counter: 1/10
+Epoch [44/100] | Train Loss: 0.0515 | Val Loss: 0.0794 | Val Dice: 0.9738
+Early stop counter: 2/10
+Epoch [45/100] | Train Loss: 0.0516 | Val Loss: 0.0801 | Val Dice: 0.9738
+Early stop counter: 3/10
+Epoch [46/100] | Train Loss: 0.0523 | Val Loss: 0.0785 | Val Dice: 0.9742
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [47/100] | Train Loss: 0.0505 | Val Loss: 0.0785 | Val Dice: 0.9744
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [48/100] | Train Loss: 0.0492 | Val Loss: 0.0780 | Val Dice: 0.9748
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [49/100] | Train Loss: 0.0488 | Val Loss: 0.0786 | Val Dice: 0.9748
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [50/100] | Train Loss: 0.0488 | Val Loss: 0.0782 | Val Dice: 0.9748
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [51/100] | Train Loss: 0.0494 | Val Loss: 0.0782 | Val Dice: 0.9748
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [52/100] | Train Loss: 0.0472 | Val Loss: 0.0779 | Val Dice: 0.9749
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [53/100] | Train Loss: 0.0475 | Val Loss: 0.0776 | Val Dice: 0.9751
+Best model updated and saved at info/models/DeepLabV3.pth
+Epoch [54/100] | Train Loss: 0.0495 | Val Loss: 0.0797 | Val Dice: 0.9739
+Early stop counter: 1/10
+Epoch [55/100] | Train Loss: 0.0478 | Val Loss: 0.0787 | Val Dice: 0.9749
+Early stop counter: 2/10

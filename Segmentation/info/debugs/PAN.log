@@ -1,0 +1,124 @@
+/home/jimmywu/homework/AI_capstone/Final_project/.venv/lib/python3.9/site-packages/albumentations/__init__.py:28: UserWarning: A new version of Albumentations is available: '2.0.7' (you have '2.0.6'). Upgrade using: pip install -U albumentations. To disable automatic update checks, set the environment variable NO_ALBUMENTATIONS_UPDATE to 1.
+  check_for_updates()
+/home/jimmywu/homework/AI_capstone/Final_project/.venv/lib/python3.9/site-packages/torch/cuda/__init__.py:174: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 11040). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:109.)
+  return torch._C._cuda_getDeviceCount() > 0
+Epoch [1/100] | Train Loss: 0.6274 | Val Loss: 0.5769 | Val Dice: 0.7410
+Best model updated and saved at info/models/PAN.pth
+Epoch [2/100] | Train Loss: 0.4201 | Val Loss: 0.3962 | Val Dice: 0.8152
+Best model updated and saved at info/models/PAN.pth
+Epoch [3/100] | Train Loss: 0.3300 | Val Loss: 0.2887 | Val Dice: 0.8903
+Best model updated and saved at info/models/PAN.pth
+Epoch [4/100] | Train Loss: 0.2878 | Val Loss: 0.2475 | Val Dice: 0.9078
+Best model updated and saved at info/models/PAN.pth
+Epoch [5/100] | Train Loss: 0.2603 | Val Loss: 0.2314 | Val Dice: 0.9124
+Best model updated and saved at info/models/PAN.pth
+Epoch [6/100] | Train Loss: 0.2380 | Val Loss: 0.2128 | Val Dice: 0.9204
+Best model updated and saved at info/models/PAN.pth
+Epoch [7/100] | Train Loss: 0.2186 | Val Loss: 0.2030 | Val Dice: 0.9250
+Best model updated and saved at info/models/PAN.pth
+Epoch [8/100] | Train Loss: 0.2115 | Val Loss: 0.1863 | Val Dice: 0.9317
+Best model updated and saved at info/models/PAN.pth
+Epoch [9/100] | Train Loss: 0.1971 | Val Loss: 0.1793 | Val Dice: 0.9339
+Best model updated and saved at info/models/PAN.pth
+Epoch [10/100] | Train Loss: 0.1865 | Val Loss: 0.1717 | Val Dice: 0.9361
+Best model updated and saved at info/models/PAN.pth
+Epoch [11/100] | Train Loss: 0.1779 | Val Loss: 0.1689 | Val Dice: 0.9395
+Best model updated and saved at info/models/PAN.pth
+Epoch [12/100] | Train Loss: 0.1697 | Val Loss: 0.1654 | Val Dice: 0.9411
+Best model updated and saved at info/models/PAN.pth
+Epoch [13/100] | Train Loss: 0.1580 | Val Loss: 0.1496 | Val Dice: 0.9452
+Best model updated and saved at info/models/PAN.pth
+Epoch [14/100] | Train Loss: 0.1455 | Val Loss: 0.1462 | Val Dice: 0.9466
+Best model updated and saved at info/models/PAN.pth
+Epoch [15/100] | Train Loss: 0.1436 | Val Loss: 0.1379 | Val Dice: 0.9497
+Best model updated and saved at info/models/PAN.pth
+Epoch [16/100] | Train Loss: 0.1376 | Val Loss: 0.1354 | Val Dice: 0.9509
+Best model updated and saved at info/models/PAN.pth
+Epoch [17/100] | Train Loss: 0.1335 | Val Loss: 0.1310 | Val Dice: 0.9526
+Best model updated and saved at info/models/PAN.pth
+Epoch [18/100] | Train Loss: 0.1320 | Val Loss: 0.1292 | Val Dice: 0.9522
+Early stop counter: 1/10
+Epoch [19/100] | Train Loss: 0.1244 | Val Loss: 0.1289 | Val Dice: 0.9528
+Best model updated and saved at info/models/PAN.pth
+Epoch [20/100] | Train Loss: 0.1209 | Val Loss: 0.1204 | Val Dice: 0.9557
+Best model updated and saved at info/models/PAN.pth
+Epoch [21/100] | Train Loss: 0.1154 | Val Loss: 0.1169 | Val Dice: 0.9572
+Best model updated and saved at info/models/PAN.pth
+Epoch [22/100] | Train Loss: 0.1133 | Val Loss: 0.1158 | Val Dice: 0.9571
+Early stop counter: 1/10
+Epoch [23/100] | Train Loss: 0.1171 | Val Loss: 0.1125 | Val Dice: 0.9579
+Best model updated and saved at info/models/PAN.pth
+Epoch [24/100] | Train Loss: 0.1088 | Val Loss: 0.1138 | Val Dice: 0.9573
+Early stop counter: 1/10
+Epoch [25/100] | Train Loss: 0.1073 | Val Loss: 0.1091 | Val Dice: 0.9593
+Best model updated and saved at info/models/PAN.pth
+Epoch [26/100] | Train Loss: 0.1038 | Val Loss: 0.1070 | Val Dice: 0.9603
+Best model updated and saved at info/models/PAN.pth
+Epoch [27/100] | Train Loss: 0.0972 | Val Loss: 0.1055 | Val Dice: 0.9606
+Best model updated and saved at info/models/PAN.pth
+Epoch [28/100] | Train Loss: 0.0950 | Val Loss: 0.1046 | Val Dice: 0.9615
+Best model updated and saved at info/models/PAN.pth
+Epoch [29/100] | Train Loss: 0.0937 | Val Loss: 0.1018 | Val Dice: 0.9626
+Best model updated and saved at info/models/PAN.pth
+Epoch [30/100] | Train Loss: 0.0973 | Val Loss: 0.1069 | Val Dice: 0.9595
+Early stop counter: 1/10
+Epoch [31/100] | Train Loss: 0.0916 | Val Loss: 0.1019 | Val Dice: 0.9623
+Early stop counter: 2/10
+Epoch [32/100] | Train Loss: 0.0901 | Val Loss: 0.0984 | Val Dice: 0.9635
+Best model updated and saved at info/models/PAN.pth
+Epoch [33/100] | Train Loss: 0.0869 | Val Loss: 0.0969 | Val Dice: 0.9643
+Best model updated and saved at info/models/PAN.pth
+Epoch [34/100] | Train Loss: 0.0843 | Val Loss: 0.0974 | Val Dice: 0.9642
+Early stop counter: 1/10
+Epoch [35/100] | Train Loss: 0.0814 | Val Loss: 0.0969 | Val Dice: 0.9653
+Best model updated and saved at info/models/PAN.pth
+Epoch [36/100] | Train Loss: 0.0839 | Val Loss: 0.0954 | Val Dice: 0.9651
+Early stop counter: 1/10
+Epoch [37/100] | Train Loss: 0.0806 | Val Loss: 0.0940 | Val Dice: 0.9657
+Best model updated and saved at info/models/PAN.pth
+Epoch [38/100] | Train Loss: 0.0794 | Val Loss: 0.0949 | Val Dice: 0.9655
+Early stop counter: 1/10
+Epoch [39/100] | Train Loss: 0.0776 | Val Loss: 0.0931 | Val Dice: 0.9656
+Early stop counter: 2/10
+Epoch [40/100] | Train Loss: 0.0795 | Val Loss: 0.0944 | Val Dice: 0.9650
+Early stop counter: 3/10
+Epoch [41/100] | Train Loss: 0.0793 | Val Loss: 0.0924 | Val Dice: 0.9666
+Best model updated and saved at info/models/PAN.pth
+Epoch [42/100] | Train Loss: 0.0737 | Val Loss: 0.0889 | Val Dice: 0.9677
+Best model updated and saved at info/models/PAN.pth
+Epoch [43/100] | Train Loss: 0.0743 | Val Loss: 0.0881 | Val Dice: 0.9679
+Best model updated and saved at info/models/PAN.pth
+Epoch [44/100] | Train Loss: 0.0719 | Val Loss: 0.0876 | Val Dice: 0.9682
+Best model updated and saved at info/models/PAN.pth
+Epoch [45/100] | Train Loss: 0.0716 | Val Loss: 0.0875 | Val Dice: 0.9683
+Best model updated and saved at info/models/PAN.pth
+Epoch [46/100] | Train Loss: 0.0709 | Val Loss: 0.0881 | Val Dice: 0.9685
+Best model updated and saved at info/models/PAN.pth
+Epoch [47/100] | Train Loss: 0.0697 | Val Loss: 0.0869 | Val Dice: 0.9680
+Early stop counter: 1/10
+Epoch [48/100] | Train Loss: 0.0713 | Val Loss: 0.0867 | Val Dice: 0.9681
+Early stop counter: 2/10
+Epoch [49/100] | Train Loss: 0.0683 | Val Loss: 0.0883 | Val Dice: 0.9674
+Early stop counter: 3/10
+Epoch [50/100] | Train Loss: 0.0676 | Val Loss: 0.0850 | Val Dice: 0.9690
+Best model updated and saved at info/models/PAN.pth
+Epoch [51/100] | Train Loss: 0.0658 | Val Loss: 0.0858 | Val Dice: 0.9691
+Best model updated and saved at info/models/PAN.pth
+Epoch [52/100] | Train Loss: 0.0641 | Val Loss: 0.0859 | Val Dice: 0.9696
+Best model updated and saved at info/models/PAN.pth
+Epoch [53/100] | Train Loss: 0.0626 | Val Loss: 0.0828 | Val Dice: 0.9699
+Best model updated and saved at info/models/PAN.pth
+Epoch [54/100] | Train Loss: 0.0643 | Val Loss: 0.0824 | Val Dice: 0.9702
+Best model updated and saved at info/models/PAN.pth
+Epoch [55/100] | Train Loss: 0.0614 | Val Loss: 0.0835 | Val Dice: 0.9699
+Early stop counter: 1/10
+Epoch [56/100] | Train Loss: 0.0620 | Val Loss: 0.0817 | Val Dice: 0.9707
+Best model updated and saved at info/models/PAN.pth
+Epoch [57/100] | Train Loss: 0.0611 | Val Loss: 0.0811 | Val Dice: 0.9702
+Early stop counter: 1/10
+Epoch [58/100] | Train Loss: 0.0602 | Val Loss: 0.0823 | Val Dice: 0.9706
+Early stop counter: 2/10
+Epoch [59/100] | Train Loss: 0.0594 | Val Loss: 0.0824 | Val Dice: 0.9705
+Early stop counter: 3/10
+Epoch [60/100] | Train Loss: 0.0597 | Val Loss: 0.0820 | Val Dice: 0.9707
+Early stop counter: 4/10

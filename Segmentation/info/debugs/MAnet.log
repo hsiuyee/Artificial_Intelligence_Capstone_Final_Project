@@ -1,0 +1,92 @@
+/home/jimmywu/homework/AI_capstone/Final_project/.venv/lib/python3.9/site-packages/albumentations/__init__.py:28: UserWarning: A new version of Albumentations is available: '2.0.7' (you have '2.0.6'). Upgrade using: pip install -U albumentations. To disable automatic update checks, set the environment variable NO_ALBUMENTATIONS_UPDATE to 1.
+  check_for_updates()
+/home/jimmywu/homework/AI_capstone/Final_project/.venv/lib/python3.9/site-packages/torch/cuda/__init__.py:174: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 11040). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:109.)
+  return torch._C._cuda_getDeviceCount() > 0
+Epoch [1/100] | Train Loss: 0.7383 | Val Loss: 1.3754 | Val Dice: 0.6827
+Best model updated and saved at info/models/MAnet.pth
+Epoch [2/100] | Train Loss: 0.6453 | Val Loss: 0.6624 | Val Dice: 0.7158
+Best model updated and saved at info/models/MAnet.pth
+Epoch [3/100] | Train Loss: 0.5593 | Val Loss: 0.5219 | Val Dice: 0.8163
+Best model updated and saved at info/models/MAnet.pth
+Epoch [4/100] | Train Loss: 0.4833 | Val Loss: 0.4314 | Val Dice: 0.8568
+Best model updated and saved at info/models/MAnet.pth
+Epoch [5/100] | Train Loss: 0.4159 | Val Loss: 0.3697 | Val Dice: 0.8890
+Best model updated and saved at info/models/MAnet.pth
+Epoch [6/100] | Train Loss: 0.3653 | Val Loss: 0.3406 | Val Dice: 0.8901
+Best model updated and saved at info/models/MAnet.pth
+Epoch [7/100] | Train Loss: 0.3348 | Val Loss: 0.2945 | Val Dice: 0.9112
+Best model updated and saved at info/models/MAnet.pth
+Epoch [8/100] | Train Loss: 0.3073 | Val Loss: 0.2728 | Val Dice: 0.9174
+Best model updated and saved at info/models/MAnet.pth
+Epoch [9/100] | Train Loss: 0.2751 | Val Loss: 0.2560 | Val Dice: 0.9229
+Best model updated and saved at info/models/MAnet.pth
+Epoch [10/100] | Train Loss: 0.2691 | Val Loss: 0.2686 | Val Dice: 0.9158
+Early stop counter: 1/10
+Epoch [11/100] | Train Loss: 0.2522 | Val Loss: 0.2356 | Val Dice: 0.9245
+Best model updated and saved at info/models/MAnet.pth
+Epoch [12/100] | Train Loss: 0.2430 | Val Loss: 0.2492 | Val Dice: 0.9187
+Early stop counter: 1/10
+Epoch [13/100] | Train Loss: 0.2368 | Val Loss: 0.2530 | Val Dice: 0.9184
+Early stop counter: 2/10
+Epoch [14/100] | Train Loss: 0.2200 | Val Loss: 0.1942 | Val Dice: 0.9399
+Best model updated and saved at info/models/MAnet.pth
+Epoch [15/100] | Train Loss: 0.2069 | Val Loss: 0.1843 | Val Dice: 0.9427
+Best model updated and saved at info/models/MAnet.pth
+Epoch [16/100] | Train Loss: 0.1891 | Val Loss: 0.1898 | Val Dice: 0.9412
+Early stop counter: 1/10
+Epoch [17/100] | Train Loss: 0.1775 | Val Loss: 0.1662 | Val Dice: 0.9484
+Best model updated and saved at info/models/MAnet.pth
+Epoch [18/100] | Train Loss: 0.1662 | Val Loss: 0.1548 | Val Dice: 0.9525
+Best model updated and saved at info/models/MAnet.pth
+Epoch [19/100] | Train Loss: 0.1817 | Val Loss: 0.1689 | Val Dice: 0.9463
+Early stop counter: 1/10
+Epoch [20/100] | Train Loss: 0.1611 | Val Loss: 0.1454 | Val Dice: 0.9547
+Best model updated and saved at info/models/MAnet.pth
+Epoch [21/100] | Train Loss: 0.1567 | Val Loss: 0.1555 | Val Dice: 0.9484
+Early stop counter: 1/10
+Epoch [22/100] | Train Loss: 0.1475 | Val Loss: 0.1512 | Val Dice: 0.9488
+Early stop counter: 2/10
+Epoch [23/100] | Train Loss: 0.1410 | Val Loss: 0.1412 | Val Dice: 0.9548
+Best model updated and saved at info/models/MAnet.pth
+Epoch [24/100] | Train Loss: 0.1406 | Val Loss: 0.1327 | Val Dice: 0.9568
+Best model updated and saved at info/models/MAnet.pth
+Epoch [25/100] | Train Loss: 0.1306 | Val Loss: 0.1389 | Val Dice: 0.9532
+Early stop counter: 1/10
+Epoch [26/100] | Train Loss: 0.1375 | Val Loss: 0.1250 | Val Dice: 0.9594
+Best model updated and saved at info/models/MAnet.pth
+Epoch [27/100] | Train Loss: 0.1259 | Val Loss: 0.1476 | Val Dice: 0.9526
+Early stop counter: 1/10
+Epoch [28/100] | Train Loss: 0.1251 | Val Loss: 0.1271 | Val Dice: 0.9577
+Early stop counter: 2/10
+Epoch [29/100] | Train Loss: 0.1284 | Val Loss: 0.1208 | Val Dice: 0.9594
+Best model updated and saved at info/models/MAnet.pth
+Epoch [30/100] | Train Loss: 0.1159 | Val Loss: 0.1362 | Val Dice: 0.9550
+Early stop counter: 1/10
+Epoch [31/100] | Train Loss: 0.1124 | Val Loss: 0.1241 | Val Dice: 0.9581
+Early stop counter: 2/10
+Epoch [32/100] | Train Loss: 0.1106 | Val Loss: 0.1172 | Val Dice: 0.9612
+Best model updated and saved at info/models/MAnet.pth
+Epoch [33/100] | Train Loss: 0.1094 | Val Loss: 0.1182 | Val Dice: 0.9600
+Early stop counter: 1/10
+Epoch [34/100] | Train Loss: 0.1111 | Val Loss: 0.1097 | Val Dice: 0.9638
+Best model updated and saved at info/models/MAnet.pth
+Epoch [35/100] | Train Loss: 0.0998 | Val Loss: 0.1053 | Val Dice: 0.9652
+Best model updated and saved at info/models/MAnet.pth
+Epoch [36/100] | Train Loss: 0.1004 | Val Loss: 0.1061 | Val Dice: 0.9647
+Early stop counter: 1/10
+Epoch [37/100] | Train Loss: 0.0962 | Val Loss: 0.1039 | Val Dice: 0.9656
+Best model updated and saved at info/models/MAnet.pth
+Epoch [38/100] | Train Loss: 0.0909 | Val Loss: 0.1036 | Val Dice: 0.9660
+Best model updated and saved at info/models/MAnet.pth
+Epoch [39/100] | Train Loss: 0.0940 | Val Loss: 0.1037 | Val Dice: 0.9656
+Early stop counter: 1/10
+Epoch [40/100] | Train Loss: 0.0958 | Val Loss: 0.1069 | Val Dice: 0.9645
+Early stop counter: 2/10
+Epoch [41/100] | Train Loss: 0.0859 | Val Loss: 0.1055 | Val Dice: 0.9662
+Best model updated and saved at info/models/MAnet.pth
+Epoch [42/100] | Train Loss: 0.0844 | Val Loss: 0.1046 | Val Dice: 0.9661
+Early stop counter: 1/10
+Epoch [43/100] | Train Loss: 0.0852 | Val Loss: 0.1021 | Val Dice: 0.9668
+Best model updated and saved at info/models/MAnet.pth
+Epoch [44/100] | Train Loss: 0.0834 | Val Loss: 0.1049 | Val Dice: 0.9656
+Early stop counter: 1/10

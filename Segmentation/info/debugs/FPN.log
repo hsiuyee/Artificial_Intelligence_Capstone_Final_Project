@@ -1,0 +1,122 @@
+/home/jimmywu/homework/AI_capstone/Final_project/.venv/lib/python3.9/site-packages/albumentations/__init__.py:28: UserWarning: A new version of Albumentations is available: '2.0.7' (you have '2.0.6'). Upgrade using: pip install -U albumentations. To disable automatic update checks, set the environment variable NO_ALBUMENTATIONS_UPDATE to 1.
+  check_for_updates()
+/home/jimmywu/homework/AI_capstone/Final_project/.venv/lib/python3.9/site-packages/torch/cuda/__init__.py:174: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 11040). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:109.)
+  return torch._C._cuda_getDeviceCount() > 0
+Epoch [1/100] | Train Loss: 0.8474 | Val Loss: 0.5713 | Val Dice: 0.7382
+Best model updated and saved at info/models/FPN.pth
+Epoch [2/100] | Train Loss: 0.5995 | Val Loss: 0.4314 | Val Dice: 0.8129
+Best model updated and saved at info/models/FPN.pth
+Epoch [3/100] | Train Loss: 0.5118 | Val Loss: 0.3895 | Val Dice: 0.8428
+Best model updated and saved at info/models/FPN.pth
+Epoch [4/100] | Train Loss: 0.4312 | Val Loss: 0.3261 | Val Dice: 0.8679
+Best model updated and saved at info/models/FPN.pth
+Epoch [5/100] | Train Loss: 0.3529 | Val Loss: 0.2852 | Val Dice: 0.8918
+Best model updated and saved at info/models/FPN.pth
+Epoch [6/100] | Train Loss: 0.3125 | Val Loss: 0.2588 | Val Dice: 0.9010
+Best model updated and saved at info/models/FPN.pth
+Epoch [7/100] | Train Loss: 0.2923 | Val Loss: 0.2403 | Val Dice: 0.9076
+Best model updated and saved at info/models/FPN.pth
+Epoch [8/100] | Train Loss: 0.2734 | Val Loss: 0.2339 | Val Dice: 0.9102
+Best model updated and saved at info/models/FPN.pth
+Epoch [9/100] | Train Loss: 0.2467 | Val Loss: 0.2067 | Val Dice: 0.9189
+Best model updated and saved at info/models/FPN.pth
+Epoch [10/100] | Train Loss: 0.2349 | Val Loss: 0.1953 | Val Dice: 0.9264
+Best model updated and saved at info/models/FPN.pth
+Epoch [11/100] | Train Loss: 0.2083 | Val Loss: 0.2039 | Val Dice: 0.9200
+Early stop counter: 1/10
+Epoch [12/100] | Train Loss: 0.1903 | Val Loss: 0.1843 | Val Dice: 0.9309
+Best model updated and saved at info/models/FPN.pth
+Epoch [13/100] | Train Loss: 0.1837 | Val Loss: 0.1749 | Val Dice: 0.9344
+Best model updated and saved at info/models/FPN.pth
+Epoch [14/100] | Train Loss: 0.1731 | Val Loss: 0.1686 | Val Dice: 0.9379
+Best model updated and saved at info/models/FPN.pth
+Epoch [15/100] | Train Loss: 0.1907 | Val Loss: 0.1770 | Val Dice: 0.9320
+Early stop counter: 1/10
+Epoch [16/100] | Train Loss: 0.1868 | Val Loss: 0.1760 | Val Dice: 0.9342
+Early stop counter: 2/10
+Epoch [17/100] | Train Loss: 0.1773 | Val Loss: 0.1532 | Val Dice: 0.9437
+Best model updated and saved at info/models/FPN.pth
+Epoch [18/100] | Train Loss: 0.1609 | Val Loss: 0.1507 | Val Dice: 0.9435
+Early stop counter: 1/10
+Epoch [19/100] | Train Loss: 0.1485 | Val Loss: 0.1437 | Val Dice: 0.9468
+Best model updated and saved at info/models/FPN.pth
+Epoch [20/100] | Train Loss: 0.1466 | Val Loss: 0.1452 | Val Dice: 0.9465
+Early stop counter: 1/10
+Epoch [21/100] | Train Loss: 0.1439 | Val Loss: 0.1744 | Val Dice: 0.9384
+Early stop counter: 2/10
+Epoch [22/100] | Train Loss: 0.1473 | Val Loss: 0.1502 | Val Dice: 0.9456
+Early stop counter: 3/10
+Epoch [23/100] | Train Loss: 0.1335 | Val Loss: 0.1375 | Val Dice: 0.9498
+Best model updated and saved at info/models/FPN.pth
+Epoch [24/100] | Train Loss: 0.1338 | Val Loss: 0.1321 | Val Dice: 0.9517
+Best model updated and saved at info/models/FPN.pth
+Epoch [25/100] | Train Loss: 0.1245 | Val Loss: 0.1301 | Val Dice: 0.9527
+Best model updated and saved at info/models/FPN.pth
+Epoch [26/100] | Train Loss: 0.1198 | Val Loss: 0.1306 | Val Dice: 0.9521
+Early stop counter: 1/10
+Epoch [27/100] | Train Loss: 0.1186 | Val Loss: 0.1263 | Val Dice: 0.9538
+Best model updated and saved at info/models/FPN.pth
+Epoch [28/100] | Train Loss: 0.1148 | Val Loss: 0.1258 | Val Dice: 0.9549
+Best model updated and saved at info/models/FPN.pth
+Epoch [29/100] | Train Loss: 0.1108 | Val Loss: 0.1220 | Val Dice: 0.9561
+Best model updated and saved at info/models/FPN.pth
+Epoch [30/100] | Train Loss: 0.1080 | Val Loss: 0.1223 | Val Dice: 0.9552
+Early stop counter: 1/10
+Epoch [31/100] | Train Loss: 0.1083 | Val Loss: 0.1199 | Val Dice: 0.9562
+Best model updated and saved at info/models/FPN.pth
+Epoch [32/100] | Train Loss: 0.1067 | Val Loss: 0.1199 | Val Dice: 0.9569
+Best model updated and saved at info/models/FPN.pth
+Epoch [33/100] | Train Loss: 0.1005 | Val Loss: 0.1154 | Val Dice: 0.9580
+Best model updated and saved at info/models/FPN.pth
+Epoch [34/100] | Train Loss: 0.0993 | Val Loss: 0.1142 | Val Dice: 0.9589
+Best model updated and saved at info/models/FPN.pth
+Epoch [35/100] | Train Loss: 0.1015 | Val Loss: 0.1149 | Val Dice: 0.9588
+Early stop counter: 1/10
+Epoch [36/100] | Train Loss: 0.0987 | Val Loss: 0.1125 | Val Dice: 0.9599
+Best model updated and saved at info/models/FPN.pth
+Epoch [37/100] | Train Loss: 0.0956 | Val Loss: 0.1104 | Val Dice: 0.9599
+Best model updated and saved at info/models/FPN.pth
+Epoch [38/100] | Train Loss: 0.0928 | Val Loss: 0.1104 | Val Dice: 0.9603
+Best model updated and saved at info/models/FPN.pth
+Epoch [39/100] | Train Loss: 0.0887 | Val Loss: 0.1095 | Val Dice: 0.9611
+Best model updated and saved at info/models/FPN.pth
+Epoch [40/100] | Train Loss: 0.0882 | Val Loss: 0.1098 | Val Dice: 0.9608
+Early stop counter: 1/10
+Epoch [41/100] | Train Loss: 0.0877 | Val Loss: 0.1105 | Val Dice: 0.9613
+Best model updated and saved at info/models/FPN.pth
+Epoch [42/100] | Train Loss: 0.0903 | Val Loss: 0.1114 | Val Dice: 0.9609
+Early stop counter: 1/10
+Epoch [43/100] | Train Loss: 0.0844 | Val Loss: 0.1095 | Val Dice: 0.9612
+Early stop counter: 2/10
+Epoch [44/100] | Train Loss: 0.0857 | Val Loss: 0.1072 | Val Dice: 0.9619
+Best model updated and saved at info/models/FPN.pth
+Epoch [45/100] | Train Loss: 0.0856 | Val Loss: 0.1067 | Val Dice: 0.9629
+Best model updated and saved at info/models/FPN.pth
+Epoch [46/100] | Train Loss: 0.0832 | Val Loss: 0.1055 | Val Dice: 0.9632
+Best model updated and saved at info/models/FPN.pth
+Epoch [47/100] | Train Loss: 0.0802 | Val Loss: 0.1048 | Val Dice: 0.9636
+Best model updated and saved at info/models/FPN.pth
+Epoch [48/100] | Train Loss: 0.0793 | Val Loss: 0.1036 | Val Dice: 0.9638
+Best model updated and saved at info/models/FPN.pth
+Epoch [49/100] | Train Loss: 0.0823 | Val Loss: 0.1091 | Val Dice: 0.9616
+Early stop counter: 1/10
+Epoch [50/100] | Train Loss: 0.0892 | Val Loss: 0.1127 | Val Dice: 0.9604
+Early stop counter: 2/10
+Epoch [51/100] | Train Loss: 0.0838 | Val Loss: 0.1190 | Val Dice: 0.9617
+Early stop counter: 3/10
+Epoch [52/100] | Train Loss: 0.0866 | Val Loss: 0.1150 | Val Dice: 0.9621
+Early stop counter: 4/10
+Epoch [53/100] | Train Loss: 0.0814 | Val Loss: 0.1084 | Val Dice: 0.9642
+Best model updated and saved at info/models/FPN.pth
+Epoch [54/100] | Train Loss: 0.0750 | Val Loss: 0.1065 | Val Dice: 0.9649
+Best model updated and saved at info/models/FPN.pth
+Epoch [55/100] | Train Loss: 0.0739 | Val Loss: 0.1077 | Val Dice: 0.9651
+Best model updated and saved at info/models/FPN.pth
+Epoch [56/100] | Train Loss: 0.0719 | Val Loss: 0.1080 | Val Dice: 0.9647
+Early stop counter: 1/10
+Epoch [57/100] | Train Loss: 0.0694 | Val Loss: 0.1048 | Val Dice: 0.9657
+Best model updated and saved at info/models/FPN.pth
+Epoch [58/100] | Train Loss: 0.0677 | Val Loss: 0.1040 | Val Dice: 0.9663
+Best model updated and saved at info/models/FPN.pth
+Epoch [59/100] | Train Loss: 0.0684 | Val Loss: 0.1042 | Val Dice: 0.9664
+Best model updated and saved at info/models/FPN.pth
