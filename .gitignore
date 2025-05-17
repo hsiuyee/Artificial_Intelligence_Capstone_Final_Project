@@ -1,7 +1,6 @@
 # Ignore model checkpoints and logs
 Segmentation/dataset
 Segmentation/info/models/
-Segmentation/info/debugs/
 Classification/*/info/models/
 Classification/*/info/debugs/
 Preprocess/Warwick_QU_Dataset_augmentation
