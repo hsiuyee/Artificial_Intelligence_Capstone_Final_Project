@@ -5,35 +5,27 @@ from PIL import Image, ImageOps, ImageEnhance, ImageDraw
 import numpy as np
 import torch
 import cv2
-import matplotlib.pyplot as plt
 import random
 import shutil
 from tqdm import tqdm
+import argparse
 
-# 1. Parameters
-DATA_DIR = 'Preprocess/Warwick_QU_Dataset'
-SAVE_DIR = 'Preprocess/Warwick_QU_Dataset_augmentation'
-IMG_SIZE = 256  # Adjust as needed
+# ----------------------
+# Argparser
+# ----------------------
+parser = argparse.ArgumentParser()
+parser.add_argument('--data', required=True, help='Path to GlaS@MICCAI dataset root')
+parser.add_argument('--save', required=True, help='Path to save the augmented data')
+parser.add_argument('--mode', required=True, help='Seg or Cla')
+parser.add_argument('--patch', default=3, type=int)
+parser.add_argument('--aug', default=5, type=int)
+parser.add_argument('--color', default=True, type=bool)
+parser.add_argument('--gray', default=False, type=bool)
+parser.add_argument('--unused_label', default=255, type=int)
+parser.add_argument('--image_shot', default=0, type=int, help='0: all training dataset')
+parser.add_argument('--image_size', default=224, type=int)
+parser.add_argument('--num_class', default=2, type=int, help='2 or 5')
 
-# 2. Dataset definition
-"""
-class NoisyImageDataset(Dataset):
-    def __init__(self, root_dir, img_size=128):
-        self.files = sorted(glob(os.path.join(root_dir, '*.bmp')))
-        self.transform = transforms.Compose([
-            transforms.Resize((img_size, img_size), interpolation=InterpolationMode.BICUBIC),
-            transforms.ToTensor()
-        ])
-    def __len__(self):
-        return len(self.files)
-    def __getitem__(self, idx):
-        img = Image.open(self.files[idx]).convert('RGB')
-        img = self.transform(img)
-        # Add noise
-        noise = torch.randn_like(img) * 0.2   # Change 0.2 for desired noise strength
-        noisy_img = (img + noise).clamp(0, 1)
-        return noisy_img, img
-"""
 
 # 3. image transform functions
 def mask_transform(original_mask:Image)->Image:
@@ -333,6 +325,11 @@ def uncompress_dataset(path):
 
 # 6. Process
 if __name__ == "__main__":
+    # 1. Parameters
+    args = parser.parse_args()
+    DATA_DIR = args.data
+    SAVE_DIR = args.save
+    IMG_SIZE = args.image_size  # Adjust as needed
     os.makedirs(SAVE_DIR, exist_ok=True)
     files = list()
     seq_num = 1
