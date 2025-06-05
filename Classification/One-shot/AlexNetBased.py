@@ -129,12 +129,11 @@ def get_data_loaders(img_dir, csv_path,
     return train_ld, test_ld
 
 # --- The function of contrastive loss ---
-def criterion(x1, x2, label, margin: float = 0.4):
+def criterion(x1, x2, label, margin: float = 0.5):
     """
     Computes Contrastive Loss
     """
     dist = torch.nn.functional.pairwise_distance(x1, x2)
-    print(label, dist)
     loss = (1 - label) * torch.pow(dist, 2) \
         + (label) * torch.pow(torch.clamp(margin - dist, min=0.0), 2)
     loss = torch.mean(loss)
@@ -162,10 +161,10 @@ def build_model(embedding_len = 256):
     return model
 
 def train(model, train_ld, test_ld, device,
-          epochs=30, lr=1e-4, patience=7, margin=0.2):
+          epochs=100, lr=2e-4, patience=10, margin=0.25):
     optimizer = optim.Adam(model.parameters(), lr=lr)
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-        optimizer, mode='max', factor=0.5, patience=patience
+        optimizer, mode='max', factor=0.5, patience=3
     )
 
 
@@ -193,7 +192,6 @@ def train(model, train_ld, test_ld, device,
                 x1, x2, y = x1.to(device), x2.to(device), y.to(device)
                 dist = torch.nn.functional.pairwise_distance(model(x1), model(x2), keepdim=False)
                 preds = (dist >= margin)
-                print(dist, preds, y)
                 all_preds.append(preds.cpu())
                 all_labels.append(y.cpu())
         all_preds  = torch.cat(all_preds).numpy()
@@ -216,6 +214,9 @@ def train(model, train_ld, test_ld, device,
         history['test_f1'].append(test_f1)
 
         # Save best model
+        if ep % 20 == 0:
+            torch.save(model.state_dict(), f'./Classification/One-shot/checkpoint.pth')
+            plot_all_metrics(history, out_path='./Classification/One-shot/', ep=ep)
         if test_acc > best_acc:
             best_acc, no_improve = test_acc, 0
             torch.save(model.state_dict(), './Classification/One-shot/best_model_pretraining.pth')
@@ -228,14 +229,14 @@ def train(model, train_ld, test_ld, device,
     return history, best_acc
 
 # --- Plot metrics (loss, acc, f1) and save ---
-def plot_all_metrics(history, out_path='./'):
+def plot_all_metrics(history, out_path='./', ep=None):
     epochs = range(1, len(history['train_loss']) + 1)
     plt.figure(figsize=(8,5))
     plt.plot(epochs, history['train_loss'], label='Train Loss')
     plt.xlabel('Epoch')
     plt.legend()
     plt.tight_layout()
-    plt.savefig(out_path+"loss.png")
+    plt.savefig(out_path+f"loss_{ep}.png")
     plt.close()
     plt.figure(figsize=(8,5))
     plt.plot(epochs, history['test_acc'],   label='Test Acc')
@@ -243,7 +244,7 @@ def plot_all_metrics(history, out_path='./'):
     plt.xlabel('Epoch')
     plt.legend()
     plt.tight_layout()
-    plt.savefig(out_path+"acc_F1.png")
+    plt.savefig(out_path+f"acc_F1_{ep}.png")
     plt.close()
     print(f"Saved combined metrics plot to {out_path}")
 
@@ -291,5 +292,5 @@ if __name__ == '__main__':
     print(f"Best Test Acc: {best_acc:.4f}")
 
     # Save metric plots and feature importance
-    plot_all_metrics(history, out_path='./Classification/One-shot/')
+    # plot_all_metrics(history, out_path='./Classification/One-shot/')
     # plot_feature_importance(model, out_path='feature_importance.png', topk=10)
