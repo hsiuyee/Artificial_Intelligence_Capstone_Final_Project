@@ -5,6 +5,7 @@ import torch
 from torch.utils.data import Dataset
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
+from torchvision import transforms
 import shutil
 import random
 
@@ -36,6 +37,7 @@ def dice_score(preds, targets, threshold=0.5):
     dice = (2. * intersection + smooth) / (union + smooth)
     return dice.item()
 
+
 # Dataset
 class GlaSDataset(Dataset):
     def __init__(self, image_dir, mask_dir, transform=None):
@@ -61,6 +63,48 @@ class GlaSDataset(Dataset):
             mask = augmented['mask'].unsqueeze(0)  # (1, H, W)
 
         return image, mask
+
+
+class FewShotGlaSDataset(Dataset):
+    def __init__(self, root_dir, split='train', transform=None, shot=1):
+        self.img_dir = os.path.join(root_dir, 'images', split)
+        self.mask_dir = os.path.join(root_dir, 'masks', split)
+        self.transform = transform
+        self.shot = shot
+
+        self.img_list = sorted(os.listdir(self.img_dir))
+
+    def __len__(self):
+        return len(self.img_list)
+
+    def __getitem__(self, idx):
+        query_name = self.img_list[idx]
+        query_img = Image.open(os.path.join(self.img_dir, query_name)).convert('RGB')
+        query_mask = Image.open(os.path.join(self.mask_dir, query_name)).convert('L')
+
+        if self.transform:
+            query_img = self.transform(query_img)
+            query_mask = transforms.ToTensor()(query_mask)
+            query_mask = (query_mask > 0.5).float()
+
+        support_indices = random.sample([i for i in range(len(self)) if i != idx], self.shot)
+        support_imgs, support_masks = [], []
+        for i in support_indices:
+            s_img = Image.open(os.path.join(self.img_dir, self.img_list[i])).convert('RGB')
+            s_mask = Image.open(os.path.join(self.mask_dir, self.img_list[i])).convert('L')
+
+            if self.transform:
+                s_img = self.transform(s_img)
+                s_mask = transforms.ToTensor()(s_mask)
+                s_mask = (s_mask > 0.5).float()
+
+            support_imgs.append(s_img)
+            support_masks.append(s_mask)
+
+        support_imgs = torch.stack(support_imgs)
+        support_masks = torch.stack(support_masks)
+
+        return support_imgs, support_masks, query_img, query_mask
 
 
 def build_dataset(source_dir, output_dir, split_ratio = 0.8):

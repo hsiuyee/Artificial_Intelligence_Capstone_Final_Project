@@ -116,3 +116,89 @@ Epoch [56/100] | Train Loss: 0.0506 | Val Loss: 0.0819 | Val Dice: 0.9778
 Early stop counter: 1/10
 Epoch [57/100] | Train Loss: 0.0515 | Val Loss: 0.0834 | Val Dice: 0.9773
 Early stop counter: 2/10
+Epoch [58/100] | Train Loss: 0.0505 | Val Loss: 0.0811 | Val Dice: 0.9782
+Early stop counter: 3/10
+Epoch [59/100] | Train Loss: 0.0493 | Val Loss: 0.0806 | Val Dice: 0.9783
+Best model updated and saved at info/models/Linknet.pth
+Epoch [60/100] | Train Loss: 0.0477 | Val Loss: 0.0811 | Val Dice: 0.9780
+Early stop counter: 1/10
+Epoch [61/100] | Train Loss: 0.0452 | Val Loss: 0.0804 | Val Dice: 0.9784
+Best model updated and saved at info/models/Linknet.pth
+Epoch [62/100] | Train Loss: 0.0472 | Val Loss: 0.0814 | Val Dice: 0.9780
+Early stop counter: 1/10
+Epoch [63/100] | Train Loss: 0.0452 | Val Loss: 0.0800 | Val Dice: 0.9786
+Best model updated and saved at info/models/Linknet.pth
+Epoch [64/100] | Train Loss: 0.0449 | Val Loss: 0.0801 | Val Dice: 0.9787
+Best model updated and saved at info/models/Linknet.pth
+Epoch [65/100] | Train Loss: 0.0450 | Val Loss: 0.0804 | Val Dice: 0.9783
+Early stop counter: 1/10
+Epoch [66/100] | Train Loss: 0.0455 | Val Loss: 0.0789 | Val Dice: 0.9790
+Best model updated and saved at info/models/Linknet.pth
+Epoch [67/100] | Train Loss: 0.0438 | Val Loss: 0.0789 | Val Dice: 0.9791
+Best model updated and saved at info/models/Linknet.pth
+Epoch [68/100] | Train Loss: 0.0438 | Val Loss: 0.0793 | Val Dice: 0.9789
+Early stop counter: 1/10
+Epoch [69/100] | Train Loss: 0.0439 | Val Loss: 0.0794 | Val Dice: 0.9788
+Early stop counter: 2/10
+Epoch [70/100] | Train Loss: 0.0438 | Val Loss: 0.0798 | Val Dice: 0.9787
+Early stop counter: 3/10
+Epoch [71/100] | Train Loss: 0.0428 | Val Loss: 0.0794 | Val Dice: 0.9789
+Early stop counter: 4/10
+Epoch [72/100] | Train Loss: 0.0412 | Val Loss: 0.0787 | Val Dice: 0.9792
+Best model updated and saved at info/models/Linknet.pth
+Epoch [73/100] | Train Loss: 0.0392 | Val Loss: 0.0779 | Val Dice: 0.9797
+Best model updated and saved at info/models/Linknet.pth
+Epoch [74/100] | Train Loss: 0.0389 | Val Loss: 0.0780 | Val Dice: 0.9796
+Early stop counter: 1/10
+Epoch [75/100] | Train Loss: 0.0385 | Val Loss: 0.0781 | Val Dice: 0.9799
+Best model updated and saved at info/models/Linknet.pth
+Epoch [76/100] | Train Loss: 0.0379 | Val Loss: 0.0782 | Val Dice: 0.9796
+Early stop counter: 1/10
+Epoch [77/100] | Train Loss: 0.0385 | Val Loss: 0.0775 | Val Dice: 0.9798
+Early stop counter: 2/10
+Epoch [78/100] | Train Loss: 0.0372 | Val Loss: 0.0782 | Val Dice: 0.9798
+Early stop counter: 3/10
+Epoch [79/100] | Train Loss: 0.0380 | Val Loss: 0.0778 | Val Dice: 0.9798
+Early stop counter: 4/10
+Epoch [80/100] | Train Loss: 0.0386 | Val Loss: 0.0776 | Val Dice: 0.9799
+Early stop counter: 5/10
+Epoch [81/100] | Train Loss: 0.0378 | Val Loss: 0.0776 | Val Dice: 0.9801
+Best model updated and saved at info/models/Linknet.pth
+Epoch [82/100] | Train Loss: 0.0372 | Val Loss: 0.0776 | Val Dice: 0.9799
+Early stop counter: 1/10
+Epoch [83/100] | Train Loss: 0.0363 | Val Loss: 0.0776 | Val Dice: 0.9801
+Best model updated and saved at info/models/Linknet.pth
+Epoch [84/100] | Train Loss: 0.0371 | Val Loss: 0.0779 | Val Dice: 0.9799
+Early stop counter: 1/10
+Epoch [85/100] | Train Loss: 0.0357 | Val Loss: 0.0778 | Val Dice: 0.9799
+Early stop counter: 2/10
+Epoch [86/100] | Train Loss: 0.0373 | Val Loss: 0.0779 | Val Dice: 0.9798
+Early stop counter: 3/10
+Epoch [87/100] | Train Loss: 0.0382 | Val Loss: 0.0769 | Val Dice: 0.9803
+Best model updated and saved at info/models/Linknet.pth
+Epoch [88/100] | Train Loss: 0.0358 | Val Loss: 0.0770 | Val Dice: 0.9802
+Early stop counter: 1/10
+Epoch [89/100] | Train Loss: 0.0353 | Val Loss: 0.0777 | Val Dice: 0.9800
+Early stop counter: 2/10
+Epoch [90/100] | Train Loss: 0.0352 | Val Loss: 0.0772 | Val Dice: 0.9803
+Best model updated and saved at info/models/Linknet.pth
+Epoch [91/100] | Train Loss: 0.0378 | Val Loss: 0.0767 | Val Dice: 0.9805
+Best model updated and saved at info/models/Linknet.pth
+Epoch [92/100] | Train Loss: 0.0359 | Val Loss: 0.0776 | Val Dice: 0.9801
+Early stop counter: 1/10
+Epoch [93/100] | Train Loss: 0.0349 | Val Loss: 0.0775 | Val Dice: 0.9802
+Early stop counter: 2/10
+Epoch [94/100] | Train Loss: 0.0356 | Val Loss: 0.0778 | Val Dice: 0.9801
+Early stop counter: 3/10
+Epoch [95/100] | Train Loss: 0.0364 | Val Loss: 0.0772 | Val Dice: 0.9804
+Early stop counter: 4/10
+Epoch [96/100] | Train Loss: 0.0345 | Val Loss: 0.0768 | Val Dice: 0.9804
+Early stop counter: 5/10
+Epoch [97/100] | Train Loss: 0.0351 | Val Loss: 0.0770 | Val Dice: 0.9803
+Early stop counter: 6/10
+Epoch [98/100] | Train Loss: 0.0362 | Val Loss: 0.0771 | Val Dice: 0.9805
+Early stop counter: 7/10
+Epoch [99/100] | Train Loss: 0.0354 | Val Loss: 0.0774 | Val Dice: 0.9801
+Early stop counter: 8/10
+Epoch [100/100] | Train Loss: 0.0348 | Val Loss: 0.0778 | Val Dice: 0.9801
+Early stop counter: 9/10
