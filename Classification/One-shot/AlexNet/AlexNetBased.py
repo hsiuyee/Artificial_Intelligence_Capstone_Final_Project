@@ -164,7 +164,7 @@ def train(model, train_ld, test_ld, device,
           epochs=100, lr=2e-4, patience=10, margin=0.25):
     optimizer = optim.Adam(model.parameters(), lr=lr)
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-        optimizer, mode='max', factor=0.5, patience=3
+        optimizer, mode='max', factor=0.5, patience=6, min_lr=2e-6
     )
 
 
@@ -215,16 +215,18 @@ def train(model, train_ld, test_ld, device,
 
         # Save best model
         if ep % 20 == 0:
-            torch.save(model.state_dict(), f'./Classification/One-shot/checkpoint.pth')
+            # torch.save(model.state_dict(), f'./Classification/One-shot/checkpoint.pth')
             plot_all_metrics(history, out_path='./Classification/One-shot/', ep=ep)
         if test_acc > best_acc:
             best_acc, no_improve = test_acc, 0
             torch.save(model.state_dict(), './Classification/One-shot/best_model_pretraining.pth')
         else:
             no_improve += 1
+            """
             if no_improve >= patience:
                 print("Early stopping.")
                 break
+            """
 
     return history, best_acc
 
@@ -292,5 +294,5 @@ if __name__ == '__main__':
     print(f"Best Test Acc: {best_acc:.4f}")
 
     # Save metric plots and feature importance
-    # plot_all_metrics(history, out_path='./Classification/One-shot/')
+    plot_all_metrics(history, out_path='./Classification/One-shot/', ep='fin')
     # plot_feature_importance(model, out_path='feature_importance.png', topk=10)
