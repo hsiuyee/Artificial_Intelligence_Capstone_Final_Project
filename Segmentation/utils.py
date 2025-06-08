@@ -2,7 +2,7 @@ import os
 import numpy as np
 from PIL import Image
 import torch
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
 from torchvision import transforms
@@ -39,7 +39,7 @@ def dice_score(preds, targets, threshold=0.5):
 
 
 # Dataset
-class GlaSDataset(Dataset):
+class StandardGlaSDataset(Dataset):
     def __init__(self, image_dir, mask_dir, transform=None):
         self.image_dir = image_dir
         self.mask_dir = mask_dir
@@ -61,14 +61,14 @@ class GlaSDataset(Dataset):
             augmented = self.transform(image=image, mask=mask)
             image = augmented['image']
             mask = augmented['mask'].unsqueeze(0)  # (1, H, W)
-
+            
         return image, mask
 
 
 class FewShotGlaSDataset(Dataset):
-    def __init__(self, root_dir, split='train', transform=None, shot=1):
-        self.img_dir = os.path.join(root_dir, 'images', split)
-        self.mask_dir = os.path.join(root_dir, 'masks', split)
+    def __init__(self, split='train', transform=None, shot=1):
+        self.img_dir = os.path.join("dataset", 'images', split)
+        self.mask_dir = os.path.join("dataset", 'masks', split)
         self.transform = transform
         self.shot = shot
 
@@ -82,19 +82,30 @@ class FewShotGlaSDataset(Dataset):
         query_img = Image.open(os.path.join(self.img_dir, query_name)).convert('RGB')
         query_mask = Image.open(os.path.join(self.mask_dir, query_name)).convert('L')
 
+        support_indices = random.sample([i for i in range(len(self)) if i != idx], self.shot)
+        support_imgs, support_masks = [], []
+
+        # === Apply transform on QUERY ===
         if self.transform:
-            query_img = self.transform(query_img)
+            augmented = self.transform(image=np.array(query_img), mask=np.array(query_mask))
+            query_img = augmented["image"]
+            query_mask = augmented["mask"].unsqueeze(0)
+        else:
+            query_img = transforms.ToTensor()(query_img)
             query_mask = transforms.ToTensor()(query_mask)
             query_mask = (query_mask > 0.5).float()
 
-        support_indices = random.sample([i for i in range(len(self)) if i != idx], self.shot)
-        support_imgs, support_masks = [], []
+        # === Apply transform on SUPPORT(s) ===
         for i in support_indices:
             s_img = Image.open(os.path.join(self.img_dir, self.img_list[i])).convert('RGB')
             s_mask = Image.open(os.path.join(self.mask_dir, self.img_list[i])).convert('L')
 
             if self.transform:
-                s_img = self.transform(s_img)
+                augmented = self.transform(image=np.array(s_img), mask=np.array(s_mask))
+                s_img = augmented["image"]
+                s_mask = augmented["mask"].unsqueeze(0)
+            else:
+                s_img = transforms.ToTensor()(s_img)
                 s_mask = transforms.ToTensor()(s_mask)
                 s_mask = (s_mask > 0.5).float()
 
@@ -105,6 +116,24 @@ class FewShotGlaSDataset(Dataset):
         support_masks = torch.stack(support_masks)
 
         return support_imgs, support_masks, query_img, query_mask
+
+
+
+def get_dataloader(shot):
+    def custom_collate_fn(batch):
+        return tuple(zip(*batch))
+
+    if shot == -1:
+        train_dataset = StandardGlaSDataset("dataset/images/train", "dataset/masks/train", transform=get_transform(train=True))
+        val_dataset = StandardGlaSDataset("dataset/images/val", "dataset/masks/val", transform=get_transform(train=False))
+    else:
+        train_dataset = FewShotGlaSDataset(split="train", transform=get_transform(train=True), shot=shot)
+        val_dataset   = FewShotGlaSDataset(split="val", transform=get_transform(train=False), shot=shot)
+
+    train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True, num_workers=2, collate_fn=custom_collate_fn)
+    val_loader = DataLoader(val_dataset, batch_size=8, shuffle=False, num_workers=2, collate_fn=custom_collate_fn)
+
+    return train_loader, val_loader
 
 
 def build_dataset(source_dir, output_dir, split_ratio = 0.8):

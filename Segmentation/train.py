@@ -6,7 +6,7 @@ from torch.utils.tensorboard import SummaryWriter
 import argparse
 from datetime import datetime
 from model import get_model, get_loss
-from utils import get_transform, dice_score, GlaSDataset
+from utils import get_transform, dice_score, get_dataloader
 from segmentation_models_pytorch.metrics import iou_score, f1_score
 
 
@@ -56,14 +56,15 @@ def train_one_epoch(shot, model, optimizer, train_loader):
     running_loss = 0.0
     if shot != -1:
 
-        for support_img, support_mask, query_img, query_mask in train_loader:
-            support_img = support_img.to(device)
-            support_mask = support_mask.to(device)
-            query_img = query_img.to(device)
-            query_mask = query_mask.to(device)
+        for support_imgs, support_masks, query_imgs, query_masks in train_loader:
+            # Stack tensors (turn list of tensors into a batch tensor)
+            support_imgs = torch.stack(support_imgs).to(device)       # [B, shot, 3, H, W]
+            support_masks = torch.stack(support_masks).to(device)     # [B, shot, 1, H, W]
+            query_imgs = torch.stack(query_imgs).to(device)           # [B, 3, H, W]
+            query_masks = torch.stack(query_masks).to(device)         # [B, 1, H, W]
 
-            outputs = model(support_img, support_mask, query_img)
-            loss = criterion(outputs, query_mask)
+            outputs = model(support_imgs, support_masks, query_imgs)
+            loss = criterion(outputs, query_masks)
 
             optimizer.zero_grad()
             loss.backward()
@@ -131,44 +132,29 @@ def train(model, writer, device, train_loader, val_loader, args):
             break
 
     writer.close()
-
-
-def dataset(shot):
-
-    if shot == -1:
-        train_dataset = GlaSDataset("dataset/images/train", "dataset/masks/train", transform=get_transform(train=True))
-        val_dataset = GlaSDataset("dataset/images/val", "dataset/masks/val", transform=get_transform(train=False))
-    else:
-        train_dataset = FewShotGlaSDataset("dataset", split="train", transform=get_transform(train=True), shot=shot)
-        val_dataset   = FewShotGlaSDataset("dataset", split="val", transform=get_transform(train=False), shot=shot)
-
-    train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True, num_workers=2)
-    val_loader = DataLoader(val_dataset, batch_size=8, shuffle=False, num_workers=2)
-
-    return train_loader, val_loader
     
 
-
 if __name__ == "__main__":
-
     os.makedirs("info/models", exist_ok=True)
     os.makedirs("info/logs", exist_ok=True)
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_name", type=str, default="FPN", help="Model name: Unet, FPN, DeepLabV3+")
-    parser.add_argument("--shot", type=int, default=-1, help="Number of support shots")
+    parser.add_argument("--shot", type=int, default=-1, help="Number of support shots (-1 means non-few-shot)")
     args = parser.parse_args()
 
-    # writer, device, model
-    writer = SummaryWriter(log_dir=f"info/logs/{args.model_name}/{datetime.now().strftime('%Y%m%d_%H%M%S')}")
+    writer = SummaryWriter(
+        log_dir=f"info/logs/{args.model_name}_shot{args.shot}/{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    )
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
     model = get_model(
         model_name=args.model_name,
-        encoder_name="resnet50"
+        encoder_name="resnet50",
+        have_shot=args.shot != -1
     ).to(device)
 
-    # train_loader, val_loader based on k-shot or normal
-    train_loader, val_loader = dataset(args.shot)
+    train_loader, val_loader = get_dataloader(args.shot)
 
     train(model, writer, device, train_loader, val_loader, args)
 

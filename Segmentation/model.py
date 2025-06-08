@@ -52,7 +52,7 @@ class KShotSiameseSegNet(nn.Module):
                 encoder_channels=[encoder_channels[0]*2] + encoder_channels[1:],
                 decoder_channels=(256, 128, 64, 32, 16),
                 n_blocks=5,
-                use_batchnorm=True,
+                use_norm="batchnorm",
             )
             seg_out_channels = 16
 
@@ -71,7 +71,7 @@ class KShotSiameseSegNet(nn.Module):
                 encoder_channels=[encoder_channels[0]*2] + encoder_channels[1:],
                 decoder_channels=(256, 128, 64, 32, 16),
                 n_blocks=5,
-                use_batchnorm=True,
+                use_norm="batchnorm",
                 center=False
             )
             seg_out_channels = 16
@@ -81,7 +81,7 @@ class KShotSiameseSegNet(nn.Module):
                 encoder_channels=[encoder_channels[0]*2] + encoder_channels[1:],
                 decoder_channels=(256, 128, 64, 32),
                 n_blocks=4,
-                use_batchnorm=True
+                use_norm="batchnorm",
             )
             seg_out_channels = 32
 
