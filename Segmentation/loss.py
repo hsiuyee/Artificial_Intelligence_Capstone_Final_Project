@@ -44,6 +44,7 @@ def pixel_contrastive_loss(f1, f2, label, temperature=0.1):
     pos_mask = (label == 0).float().unsqueeze(1)
     neg_mask = (label == 1).float().unsqueeze(1)
 
+    # BCE loss
     pos_loss = -(torch.log(torch.sigmoid(sim)) * pos_mask).sum() / (pos_mask.sum() + 1e-6)
     neg_loss = -(torch.log(1 - torch.sigmoid(sim)) * neg_mask).sum() / (neg_mask.sum() + 1e-6)
 

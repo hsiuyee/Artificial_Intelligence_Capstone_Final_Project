@@ -1,1 +1,1 @@
-setsid python3 FewShot.py --model_name Unet --shot 10 > info/debugs/unet.log 2>&1 &
+setsid python3 FewShot.py --model_name Unet --shot 8 > info/debugs/Unet8.log 2>&1 &

@@ -11,7 +11,7 @@ from utils import get_transform, dice_score, get_dataloader
 from segmentation_models_pytorch.metrics import iou_score, f1_score
 
 
-def evaluate(model, val_loader, criterion, device, shot):
+def evaluate(model, val_loader, criterion, device):
     model.eval()
     val_loss = 0.0
     val_dice = 0.0
@@ -40,7 +40,7 @@ def evaluate(model, val_loader, criterion, device, shot):
     )
 
 
-def train_one_epoch(shot, model, optimizer, train_loader, criterion, device, lambda_align=1.0):
+def train_one_epoch(model, optimizer, train_loader, criterion, device, lambda_align=1.0):
     model.train()
     running_loss = 0.0
 
@@ -75,9 +75,9 @@ def train(model, writer, device, train_loader, val_loader, args):
     for epoch in range(num_epochs):
         model.train()
 
-        running_loss = train_one_epoch(args.shot, model, optimizer, train_loader, criterion, device)
+        running_loss = train_one_epoch(model, optimizer, train_loader, criterion, device)
         train_loss = running_loss / len(train_loader)
-        val_loss, val_dice = evaluate(model, val_loader, criterion, device, args.shot)
+        val_loss, val_dice = evaluate(model, val_loader, criterion, device)
 
         print(f"Epoch [{epoch+1}/{num_epochs}] | Train Loss: {train_loss:.4f} | Val Loss: {val_loss:.4f} | Val Dice: {val_dice:.4f}")
 
@@ -92,7 +92,7 @@ def train(model, writer, device, train_loader, val_loader, args):
 
         if val_dice > best_dice:
             best_dice = val_dice
-            save_path = f"info/models/{args.model_name}_{args.shot}_shots.pth"
+            save_path = f"info/models/{args.model_name}.pth"
             torch.save(model.state_dict(), save_path)
             print(f"Best model updated and saved at {save_path}")
             early_stop_counter = 0
@@ -113,18 +113,16 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_name", type=str, default="FPN", help="Model name: Unet, FPN, DeepLabV3+")
-    parser.add_argument("--shot", type=int, default=-1, help="Number of support shots (-1 means non-few-shot)")
     args = parser.parse_args()
 
     writer = SummaryWriter(
-        log_dir=f"info/logs/{args.model_name}_shot{args.shot}/{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        log_dir=f"info/logs/{args.model_name}/{datetime.now().strftime('%Y%m%d_%H%M%S')}"
     )
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     model = get_model(
         model_name=args.model_name,
-        encoder_name="resnet50",
-        have_shot=args.shot != -1
+        encoder_name="resnet50"
     ).to(device)
 
     train_loader, val_loader = get_dataloader()

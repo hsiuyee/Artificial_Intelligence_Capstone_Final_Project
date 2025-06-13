@@ -1,1 +1,1 @@
-setsid python3 FewShot.py --model_name DeepLabV3 --shot 10 > info/debugs/unet.log 2>&1 &
+setsid python3 FewShot.py --model_name DeepLabV3 --shot 8 > info/debugs/DeepLabV38.log 2>&1 &

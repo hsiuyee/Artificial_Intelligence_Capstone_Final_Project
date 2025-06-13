@@ -1,0 +1,40 @@
+/home/jimmywu/homework/AI_capstone/Final_project/.venv/lib/python3.9/site-packages/albumentations/__init__.py:28: UserWarning: A new version of Albumentations is available: '2.0.8' (you have '2.0.6'). Upgrade using: pip install -U albumentations. To disable automatic update checks, set the environment variable NO_ALBUMENTATIONS_UPDATE to 1.
+  check_for_updates()
+/home/jimmywu/homework/AI_capstone/Final_project/.venv/lib/python3.9/site-packages/torch/cuda/__init__.py:174: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 11040). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:109.)
+  return torch._C._cuda_getDeviceCount() > 0
+Total positive images: 156
+Total negative images: 0
+Selected 4 positive and 0 negative for k-shot
+Epoch [1/50] | Train Loss: 1.3728 | Val Loss: 1.1946 | Val Dice: 0.4007
+Best model updated and saved at info/models/Unet_8_shots.pth
+Epoch [2/50] | Train Loss: 1.1738 | Val Loss: 1.1764 | Val Dice: 0.5407
+Best model updated and saved at info/models/Unet_8_shots.pth
+Epoch [3/50] | Train Loss: 0.9902 | Val Loss: 1.1470 | Val Dice: 0.6544
+Best model updated and saved at info/models/Unet_8_shots.pth
+Epoch [4/50] | Train Loss: 0.7977 | Val Loss: 1.1287 | Val Dice: 0.6824
+Best model updated and saved at info/models/Unet_8_shots.pth
+Epoch [5/50] | Train Loss: 0.7117 | Val Loss: 1.1199 | Val Dice: 0.6899
+Best model updated and saved at info/models/Unet_8_shots.pth
+Epoch [6/50] | Train Loss: 0.6247 | Val Loss: 1.1139 | Val Dice: 0.6921
+Best model updated and saved at info/models/Unet_8_shots.pth
+Epoch [7/50] | Train Loss: 0.6570 | Val Loss: 1.1092 | Val Dice: 0.6898
+Early stop counter: 1/10
+Epoch [8/50] | Train Loss: 0.5833 | Val Loss: 1.1084 | Val Dice: 0.6865
+Early stop counter: 2/10
+Epoch [9/50] | Train Loss: 0.5044 | Val Loss: 1.1028 | Val Dice: 0.6823
+Early stop counter: 3/10
+Epoch [10/50] | Train Loss: 0.4722 | Val Loss: 1.1002 | Val Dice: 0.6787
+Early stop counter: 4/10
+Epoch [11/50] | Train Loss: 0.5435 | Val Loss: 1.0997 | Val Dice: 0.6716
+Early stop counter: 5/10
+Epoch [12/50] | Train Loss: 0.5025 | Val Loss: 1.0978 | Val Dice: 0.6672
+Early stop counter: 6/10
+Epoch [13/50] | Train Loss: 0.4613 | Val Loss: 1.1013 | Val Dice: 0.6605
+Early stop counter: 7/10
+Epoch [14/50] | Train Loss: 0.4435 | Val Loss: 1.1032 | Val Dice: 0.6559
+Early stop counter: 8/10
+Epoch [15/50] | Train Loss: 0.4114 | Val Loss: 1.1002 | Val Dice: 0.6550
+Early stop counter: 9/10
+Epoch [16/50] | Train Loss: 0.4100 | Val Loss: 1.0985 | Val Dice: 0.6543
+Early stop counter: 10/10
+Early stopping triggered at epoch 16

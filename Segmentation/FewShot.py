@@ -119,7 +119,7 @@ if __name__ == "__main__":
     os.makedirs(f"info/logs/shot{args.shot}", exist_ok=True)
 
     writer = SummaryWriter(
-        log_dir=f"info/logs/{args.model_name}_shot{args.shot}/{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        log_dir=f"info/logs/shot{args.shot}/{args.model_name}_shot{args.shot}/{datetime.now().strftime('%Y%m%d_%H%M%S')}"
     )
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
