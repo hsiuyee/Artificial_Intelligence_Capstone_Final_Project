@@ -26,7 +26,7 @@ class CRCClassificationDataset(Dataset):
         self.labels = {}
         self.pair = ('train_2', 'train_1')
         self.transform = transform
-        self.randomAugment = transforms.RandAugment(1, 19)
+        self.randomAugment = transforms.RandAugment(3, 19)
         if self.type == 'train':
             return
 
@@ -62,19 +62,21 @@ class CRCClassificationDataset(Dataset):
 
     def __len__(self):
         if self.type == 'train':
-            return 20
+            return 32
         else:
             return len(self.img_names) * 2
 
     def __getitem__(self, idx):
-        lab = 0 if idx < 10 else 1
+        lab = 0 if idx < 16 else 1
+        tc = 0
+        name = 0
         if self.type == 'train':
-            if idx < 5:
+            if idx < 8:
                 base = self.pair[0]
                 path = os.path.join(self.img_dir, base + '.bmp')
                 img1 = Image.open(path).convert('RGB')
                 img2 = img1.copy()
-            elif idx < 10:
+            elif idx < 16:
                 base = self.pair[1]
                 path = os.path.join(self.img_dir, base + '.bmp')
                 img1 = Image.open(path).convert('RGB')
@@ -94,17 +96,19 @@ class CRCClassificationDataset(Dataset):
                 img2 = self.randomAugment(img2)
                 img2 = self.transform(img2)
         else:
+            tc = idx % 2
             base = self.pair[idx % 2]
             path = os.path.join(self.img_dir, base + '.bmp')
             img2 = Image.open(path).convert('RGB')
             base = self.img_names[idx // 2]
+            name = base
             path = os.path.join(self.img_dir, base + '.bmp')
             img1 = Image.open(path).convert('RGB')
             lab = 0 if self.labels[base] == idx % 2 else 1
             if self.transform:
                 img1 = self.transform(img1)
                 img2 = self.transform(img2)
-        return img1, img2, lab
+        return img1, img2, lab, tc, name
 
 # --- Build DataLoaders for train & test sets ---
 def get_data_loaders(img_dir, csv_path,
@@ -128,19 +132,7 @@ def get_data_loaders(img_dir, csv_path,
     test_ld  = DataLoader(test_ds,  batch_size=batch_size, shuffle=False, num_workers=num_workers)
 
     print(f"Found {len(train_ds)} train / {len(test_ds)} test samples")
-    return train_ld, test_ld
-
-# --- The function of contrastive loss ---
-def criterion(x1, x2, label, margin: float = 0.5):
-    """
-    Computes Contrastive Loss
-    """
-    dist = torch.nn.functional.pairwise_distance(x1, x2)
-    loss = (1 - label) * torch.pow(dist, 2) \
-        + (label) * torch.pow(torch.clamp(margin - dist, min=0.0), 2)
-    loss = torch.mean(loss)
-
-    return loss
+    return train_ld, test_ld, test_ds
 
 # --- Load a pretrained AlexNet and replace its classifier ---
 def build_model():
@@ -149,20 +141,19 @@ def build_model():
     model.load_state_dict(torch.load("./Classification/One-shot/AlexNet/Alex_oneshot.pth", weights_only=True))
     return model
 
-def valid(model, train_ld, test_ld, device):
+def valid(model, train_ld, test_ld, device, test_ds):
     best_acc = 0
     best_thr = 0
     all_preds = []
     all_labels = []
 
-
     model.eval()
     with torch.no_grad():
-        for x1, x2, y in tqdm(train_ld):
+        for x1, x2, y, _, _ in tqdm(train_ld):
             x1, x2 = x1.to(device), x2.to(device)
             dist = torch.nn.functional.pairwise_distance(model(x1), model(x2), keepdim=False)
             thr = dist.cpu().numpy()
-            for i in range(19):
+            for i in range(31):
                 margin = (thr[i] + thr[i+1]) / 2
                 preds = (dist >= margin).cpu().numpy()
                 tr = (preds == y).cpu().numpy().copy()
@@ -173,22 +164,60 @@ def valid(model, train_ld, test_ld, device):
                     best_thr = margin
                 if test_acc == best_acc:
                     best_thr = best_thr if abs(best_thr - 0.25) < abs(margin - 0.25) else margin
-                print(test_acc)
-
+                print(test_acc, end=' ')
+    all_tc = []
+    all_name = []
+    all_dist = []
     with torch.no_grad():
-        for x1, x2, y in tqdm(test_ld):
+        for x1, x2, y, tc, name in tqdm(test_ld):
             x1, x2, y = x1.to(device), x2.to(device), y.to(device)
             dist = torch.nn.functional.pairwise_distance(model(x1), model(x2), keepdim=False)
             preds = (dist >= best_thr)
             all_preds.append(preds.cpu())
             all_labels.append(y.cpu())
+            all_dist.append(dist.cpu())
+            all_tc.extend(tc)
+            all_name.extend(name)
     all_preds  = torch.cat(all_preds).numpy()
     all_labels = torch.cat(all_labels).numpy()
+    all_dist = torch.cat(all_dist).numpy()
+
+    pred_cnt = dict()
+    for i in range(len(all_tc)):
+        name = all_name[i]
+        if name not in pred_cnt.keys():
+            pred_cnt[name] = [0, 0]
+        if all_preds[i]:
+            pred_cnt[name][1 - all_tc[i]] += 1
+        else:
+            pred_cnt[name][all_tc[i]] += 1
+
+    confusion = [[0, 0], [0, 0]]
+    summ = 0
+    conf = 0
+    for k, pl in pred_cnt.items():
+        summ += 1
+        tc = test_ds.labels[k]
+        if pl[1] == pl[0]:
+            pc = -1
+            conf += 1
+        else:
+            pc = 1 if pl[1] > pl[0] else 0
+        if pc >= 0:
+            confusion[tc][pc] += 1
+    real_acc = (confusion[0][0] + confusion[1][1]) / summ
 
     test_acc = (all_preds == all_labels).mean()
     test_f1  = f1_score(all_labels, all_preds, average='binary')
 
-    fpr, tpr, thresholds = roc_curve(all_labels, all_preds)
+    fpr, tpr, _ = roc_curve(all_labels, all_dist)
+    with open("./Classification/One-shot/AlexNet/roc_record.txt", "w") as file:
+        for n in fpr:
+            file.write(f"{n}, ")
+        file.write("\n")
+        for n in tpr:
+            file.write(f"{n}, ")
+        file.write("\n")
     roc_auc = auc(fpr, tpr)
     plt.plot(fpr, tpr, label='ROC curve (area = %0.2f)' % roc_auc)
     plt.plot([0, 1], [0, 1], 'k--')
@@ -198,7 +227,11 @@ def valid(model, train_ld, test_ld, device):
     plt.legend(loc="lower right")
     plt.tight_layout()
     plt.savefig("./Classification/One-shot/AlexNet/ROC.png")
-    print(f"ACC: {test_acc}, F1: {test_f1}, AUC: {roc_auc}")
+    print(f"ACC: {test_acc*100}%, F1: {test_f1}, AUC: {roc_auc}, Real ACC: {real_acc*100}%")
+    print(f"Confusion:\n \
+          {confusion[0][0]*100/summ}%\t{confusion[0][1]*100/summ}%\n \
+          {confusion[1][0]*100/summ}%\t{confusion[1][1]*100/summ}%")
+    print(f"unknown: {conf}, {conf*100/summ}%")
 
     return
 
@@ -213,11 +246,11 @@ if __name__ == '__main__':
                           else 'cpu')
     print("Using device:", device)
 
-    train_ld, test_ld = get_data_loaders(img_dir, csv_path)
+    train_ld, test_ld, test_ds = get_data_loaders(img_dir, csv_path)
     model = build_model().to(device)
 
     try:
-        valid(model, train_ld, test_ld, device)
+        valid(model, train_ld, test_ld, device, test_ds)
     except KeyboardInterrupt:
         print("KeyboardInturrupt")
         if device == 'cuda':
