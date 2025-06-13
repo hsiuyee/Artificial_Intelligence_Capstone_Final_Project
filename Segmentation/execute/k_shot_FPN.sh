@@ -1,0 +1,1 @@
+setsid python3 FewShot.py --model_name FPN --shot 10 > info/debugs/unet.log 2>&1 &

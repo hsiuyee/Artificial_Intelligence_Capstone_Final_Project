@@ -128,16 +128,16 @@ class KShotSiameseSegNet(nn.Module):
         proto = proto.mean(dim=0)  # average over k shots
         return proto.view(1, -1, 1, 1)
 
-    def compute_alignment_loss(self, query_feat, pred_mask, support_feats, support_gt_masks):
-        pred_mask = pred_mask.argmax(dim=1).unsqueeze(1).float()
-        query_proto = self.masked_average(query_feat, pred_mask)
-        loss = 0.0
-        for sf, sm in zip(support_feats, support_gt_masks):
-            sf = sf.unsqueeze(0)
-            sm_resized = F.interpolate(sm.unsqueeze(0), size=sf.shape[-2:], mode='nearest')
-            score = F.cosine_similarity(sf, query_proto.expand_as(sf), dim=1)
-            loss += F.binary_cross_entropy_with_logits(score, sm_resized.squeeze(1))
-        return loss / len(support_feats)
+    # def compute_alignment_loss(self, query_feat, pred_mask, support_feats, support_gt_masks):
+    #     pred_mask = pred_mask.argmax(dim=1).unsqueeze(1).float()
+    #     query_proto = self.masked_average(query_feat, pred_mask)
+    #     loss = 0.0
+    #     for sf, sm in zip(support_feats, support_gt_masks):
+    #         sf = sf.unsqueeze(0)
+    #         sm_resized = F.interpolate(sm.unsqueeze(0), size=sf.shape[-2:], mode='nearest')
+    #         score = F.cosine_similarity(sf, query_proto.expand_as(sf), dim=1)
+    #         loss += F.binary_cross_entropy_with_logits(score, sm_resized.squeeze(1))
+    #     return loss / len(support_feats)
 
     def forward(self, support_imgs, support_masks, query_img, query_mask=None):
         k = support_imgs.size(0)
@@ -147,17 +147,24 @@ class KShotSiameseSegNet(nn.Module):
 
         prototype = self.masked_average(support_feats, support_masks_resized)
 
-        query_feats = self.encoder(query_img)[::-1]
-        top_feat = query_feats[0]
+        query_feats = self.encoder(query_img)  # [stage1, stage2, ..., stage5]
 
+        # 取最深的作為 top
+        top_feat = query_feats[-1]
+
+        # 與 prototype 拼接
         merged = torch.cat([top_feat, prototype.expand_as(top_feat)], dim=1)
-        decoder_input = [merged] + query_feats[1:]
-        x = self.decoder(*decoder_input)
+
+        # 解碼器輸入：先拼接層，接 shallow features（反過來）
+        decoder_input = [merged] + query_feats[:-1][::-1]  # e.g., [merged, stage4, stage3, stage2, stage1]
+
+        # decode
+        x = self.decoder(decoder_input)
         logits = self.seg_head(x)
 
         if self.training and query_mask is not None:
             query_top_feat = top_feat
-            align_loss = self.compute_alignment_loss(query_top_feat, logits, support_feats, support_masks)
-            return logits, align_loss
+            # align_loss = self.compute_alignment_loss(query_top_feat, logits, support_feats, support_masks)
+            return logits
         else:
             return logits

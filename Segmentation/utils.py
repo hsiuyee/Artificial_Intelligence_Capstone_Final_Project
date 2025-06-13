@@ -65,73 +65,108 @@ class StandardGlaSDataset(Dataset):
         return image, mask
 
 
-class FewShotGlaSDataset(Dataset):
-    def __init__(self, split='train', transform=None, shot=1):
-        self.img_dir = os.path.join("dataset", 'images', split)
-        self.mask_dir = os.path.join("dataset", 'masks', split)
+class FewShotSegContrastiveDataset(Dataset):
+    def __init__(self, dataset_root, transform=None, mode="train", k=10):
+        """
+        dataset_root: 根目錄，例如 'dataset'
+        mode: 'train' or 'val'
+        k: few-shot 數量 (僅在 train 模式下使用)
+        """
+        self.dataset_root = dataset_root
         self.transform = transform
-        self.shot = shot
+        self.mode = mode
+        self.k = k
 
-        self.img_list = sorted(os.listdir(self.img_dir))
+        self.image_dir = os.path.join(self.dataset_root, "images", self.mode)
+        self.mask_dir = os.path.join(self.dataset_root, "masks", self.mode)
+
+        self.images = os.listdir(self.image_dir)
+
+        if self.mode == "train":
+            self._generate_pairs()
+        else:
+            self.test_images = self.images
+
+    def _generate_pairs(self):
+        positive = []
+        negative = []
+
+        for name in self.images:
+            mask_path = os.path.join(self.mask_dir, name)
+            mask = np.array(Image.open(mask_path).convert("L"))
+            if np.sum(mask) > 0:
+                positive.append(name)
+            else:
+                negative.append(name)
+
+        random.shuffle(positive)
+        random.shuffle(negative)
+
+        k_pos = positive[:self.k // 2]
+        k_neg = negative[:self.k - (self.k // 2)]
+
+        print(f"Total positive images: {len(positive)}")
+        print(f"Total negative images: {len(negative)}")
+        print(f"Selected {len(k_pos)} positive and {len(k_neg)} negative for k-shot")
+
+        self.pos_pairs = [(a, b, 0) for i, a in enumerate(k_pos) for j, b in enumerate(k_pos) if i < j]
+        self.neg_pairs = [(a, b, 1) for a in k_pos for b in k_neg]
+        self.all_pairs = self.pos_pairs + self.neg_pairs
 
     def __len__(self):
-        return len(self.img_list)
+        if self.mode == "train":
+            return len(self.all_pairs)
+        else:
+            return len(self.test_images)
 
     def __getitem__(self, idx):
-        query_name = self.img_list[idx]
-        query_img = Image.open(os.path.join(self.img_dir, query_name)).convert('RGB')
-        query_mask = Image.open(os.path.join(self.mask_dir, query_name)).convert('L')
+        if self.mode == "train":
 
-        support_indices = random.sample([i for i in range(len(self)) if i != idx], self.shot)
-        support_imgs, support_masks = [], []
+            img1_name, img2_name, label = self.all_pairs[idx]
 
-        # === Apply transform on QUERY ===
-        if self.transform:
-            augmented = self.transform(image=np.array(query_img), mask=np.array(query_mask))
-            query_img = augmented["image"]
-            query_mask = augmented["mask"].unsqueeze(0)
-        else:
-            query_img = transforms.ToTensor()(query_img)
-            query_mask = transforms.ToTensor()(query_mask)
-            query_mask = (query_mask > 0.5).float()
+            img1_path = os.path.join(self.image_dir, img1_name)
+            img2_path = os.path.join(self.image_dir, img2_name)
+            mask1_path = os.path.join(self.mask_dir, img1_name)
+            mask2_path = os.path.join(self.mask_dir, img2_name)
 
-        # === Apply transform on SUPPORT(s) ===
-        for i in support_indices:
-            s_img = Image.open(os.path.join(self.img_dir, self.img_list[i])).convert('RGB')
-            s_mask = Image.open(os.path.join(self.mask_dir, self.img_list[i])).convert('L')
+            img1 = np.array(Image.open(img1_path).convert("RGB"))
+            img2 = np.array(Image.open(img2_path).convert("RGB"))
+            mask1 = np.array(Image.open(mask1_path).convert("L"))
+            mask2 = np.array(Image.open(mask2_path).convert("L"))
+
+            mask1 = (mask1 > 0).astype(np.float32)
+            mask2 = (mask2 > 0).astype(np.float32)
 
             if self.transform:
-                augmented = self.transform(image=np.array(s_img), mask=np.array(s_mask))
-                s_img = augmented["image"]
-                s_mask = augmented["mask"].unsqueeze(0)
-            else:
-                s_img = transforms.ToTensor()(s_img)
-                s_mask = transforms.ToTensor()(s_mask)
-                s_mask = (s_mask > 0.5).float()
+                aug1 = self.transform(image=img1, mask=mask1)
+                img1, mask1 = aug1['image'], aug1['mask'].unsqueeze(0)
 
-            support_imgs.append(s_img)
-            support_masks.append(s_mask)
+                aug2 = self.transform(image=img2, mask=mask2)
+                img2, mask2 = aug2['image'], aug2['mask'].unsqueeze(0)
 
-        support_imgs = torch.stack(support_imgs)
-        support_masks = torch.stack(support_masks)
+            return img1, mask1, img2, mask2, label
 
-        return support_imgs, support_masks, query_img, query_mask
+        else:  # test 模式
+            img_name = self.test_images[idx]
+            img = np.array(Image.open(os.path.join(self.image_dir, img_name)).convert("RGB"))
+            mask = np.array(Image.open(os.path.join(self.mask_dir, img_name)).convert("L"))
+            mask = (mask > 0).astype(np.float32)
+
+            if self.transform:
+                augmented = self.transform(image=img, mask=mask)
+                img = augmented['image']
+                mask = augmented['mask'].unsqueeze(0)
+
+            return img, mask
 
 
+def get_dataloader():
 
-def get_dataloader(shot):
-    def custom_collate_fn(batch):
-        return tuple(zip(*batch))
+    train_dataset = StandardGlaSDataset("dataset/images/train", "dataset/masks/train", transform=get_transform(train=True))
+    val_dataset = StandardGlaSDataset("dataset/images/val", "dataset/masks/val", transform=get_transform(train=False))
 
-    if shot == -1:
-        train_dataset = StandardGlaSDataset("dataset/images/train", "dataset/masks/train", transform=get_transform(train=True))
-        val_dataset = StandardGlaSDataset("dataset/images/val", "dataset/masks/val", transform=get_transform(train=False))
-    else:
-        train_dataset = FewShotGlaSDataset(split="train", transform=get_transform(train=True), shot=shot)
-        val_dataset   = FewShotGlaSDataset(split="val", transform=get_transform(train=False), shot=shot)
-
-    train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True, num_workers=2, collate_fn=custom_collate_fn)
-    val_loader = DataLoader(val_dataset, batch_size=8, shuffle=False, num_workers=2, collate_fn=custom_collate_fn)
+    train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True, num_workers=2)
+    val_loader = DataLoader(val_dataset, batch_size=8, shuffle=False, num_workers=2)
 
     return train_loader, val_loader
 
