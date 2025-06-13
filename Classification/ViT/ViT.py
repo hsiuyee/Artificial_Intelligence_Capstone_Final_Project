@@ -92,13 +92,10 @@ def main(args):
     ])
 
     # Dataset
-    train_loader = torch.utils.data.DataLoader(
-        datasets.ImageFolder(os.path.join(args.data, 'train'), transform),
-        batch_size=args.batch_size, shuffle=True, num_workers=4, pin_memory=True)
-
-    val_loader = torch.utils.data.DataLoader(
-        datasets.ImageFolder(os.path.join(args.data, 'val'), transform),
-        batch_size=args.batch_size, shuffle=False, num_workers=4, pin_memory=True)
+    base    = os.path.dirname(__file__)
+    img_dir = os.path.join(base, '../../Preprocess', 'Warwick_QU_Dataset')
+    
+    train_loader, val_loader = get_data_loaders(img_dir, csv_path= os.path.join(img_dir, 'Grade.csv'))
 
     # Loss & optimizer
     criterion = nn.CrossEntropyLoss()
@@ -106,6 +103,7 @@ def main(args):
 
     best_val_acc = 0.0
 
+    # train
     for epoch in range(args.epochs):
         total_loss, train_acc = train(model, train_loader, criterion, optimizer, device)
         val_acc = validate(model, val_loader, device)
